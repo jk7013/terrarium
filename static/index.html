@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terrarium Chat</title>
+  <style>
+    :root{
+      --bg0:#0b0f14;
+      --bg1:#0f1620;
+      --bg2:#121b26;
+      --panel:#0f1620cc;
+      --line:#223041;
+      --text:#e7eef8;
+      --muted:#9bb0c7;
+      --accent:#7c5cff;
+      --accent2:#38bdf8;
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --ring: 0 0 0 3px rgba(124,92,255,.18);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, "Noto Sans KR", "Malgun Gothic", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ 
+      height:100%;
+      margin:0;
+      padding:0;
+    }
+    body{
+      margin:0;
+      padding:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% -10%, rgba(124,92,255,.28), transparent 60%),
+        radial-gradient(900px 500px at 85% 0%, rgba(56,189,248,.22), transparent 55%),
+        radial-gradient(900px 700px at 60% 110%, rgba(124,92,255,.16), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
+    }
+
+    /* Layout */
+    .app{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      height: 100vh; /* viewport 높이 사용 */
+      max-height: 100vh;
+      overflow: hidden; /* app 자체는 스크롤하지 않음 */
+    }
+
+    /* Sidebar */
+    .sidebar{
+      background: linear-gradient(180deg, rgba(18,27,38,.86), rgba(12,17,24,.86));
+      border-right: 1px solid rgba(34,48,65,.7);
+      backdrop-filter: blur(14px);
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      height: 100%;
+      min-height: 0; /* grid에서 flexbox 스크롤이 작동하도록 */
+      overflow: hidden; /* sidebar 자체는 스크롤하지 않음 */
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(34,48,65,.65);
+      background: rgba(15,22,32,.5);
+      flex-shrink: 0; /* 고정 크기 */
+    }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background:
+        radial-gradient(16px 16px at 30% 30%, rgba(56,189,248,.95), transparent 60%),
+        radial-gradient(18px 18px at 70% 70%, rgba(124,92,255,.95), transparent 60%),
+        linear-gradient(135deg, rgba(124,92,255,.35), rgba(56,189,248,.25));
+      box-shadow: 0 8px 18px rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .brand h1{
+      font-size: 13px;
+      margin:0;
+      letter-spacing: .2px;
+      line-height:1.1;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(34,48,65,.75);
+      background: rgba(15,22,32,.55);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .06s ease, border-color .18s ease, background .18s ease;
+      user-select:none;
+    }
+    .btn:hover{ border-color: rgba(124,92,255,.7); background: rgba(15,22,32,.78); }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      border-color: rgba(124,92,255,.8);
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(56,189,248,.12));
+    }
+    .btn .k{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(231,238,248,.72);
+      border: 1px solid rgba(34,48,65,.75);
+      padding: 2px 6px;
+      border-radius: 8px;
+      margin-left:auto;
+      background: rgba(11,15,20,.35);
+    }
+
+    .section-title{
+      font-size: 11px;
+      color: rgba(155,176,199,.85);
+      margin: 10px 4px 6px;
+      letter-spacing:.3px;
+      text-transform: uppercase;
+      flex-shrink: 0; /* 고정 크기 */
+    }
+
+    .history{
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 4px;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      flex: 1 1 auto;
+      min-height: 0; /* flexbox에서 스크롤이 작동하도록 */
+    }
+    .history::-webkit-scrollbar{ width: 10px; }
+    .history::-webkit-scrollbar-thumb{
+      background: rgba(34,48,65,.7);
+      border-radius: 10px;
+      border: 2px solid rgba(12,17,24,.7);
+    }
+
+    .chat-item{
+      border:1px solid rgba(34,48,65,.6);
+      background: rgba(15,22,32,.45);
+      border-radius: 12px;
+      padding: 10px 10px;
+      cursor:pointer;
+      transition: border-color .18s ease, background .18s ease;
+    }
+    .chat-item:hover{ border-color: rgba(56,189,248,.55); background: rgba(15,22,32,.70); }
+    .chat-item .t{ font-size: 12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .chat-item .m{ font-size: 11px; color: var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px;}
+
+    .sidebar-footer{
+      display:flex;
+      gap:8px;
+      flex-shrink: 0; /* 고정 크기, 축소되지 않음 */
+    }
+    .pill{
+      flex:1;
+      border:1px solid rgba(34,48,65,.75);
+      background: rgba(15,22,32,.55);
+      border-radius: 12px;
+      padding: 10px 10px;
+      font-size:12px;
+      color: rgba(231,238,248,.92);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:99px;
+      background: var(--good);
+      box-shadow: 0 0 0 3px rgba(34,197,94,.16);
+    }
+
+    /* Main */
+    .main{
+      display:flex;
+      flex-direction:column;
+      height: 100%;
+      min-height: 0; /* grid에서 flexbox 스크롤이 작동하도록 */
+      min-width:0;
+      overflow: hidden; /* main 자체는 스크롤하지 않음 */
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(34,48,65,.7);
+      background: rgba(15,22,32,.50);
+      backdrop-filter: blur(12px);
+      flex-shrink: 0; /* 고정 크기, 축소되지 않음 */
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topbar .title{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    .topbar .title strong{
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+    .topbar .title span{
+      font-size: 12px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 60vw;
+    }
+    .topbar .actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    .iconbtn{
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      border:1px solid rgba(34,48,65,.75);
+      background: rgba(15,22,32,.55);
+      color: var(--text);
+      cursor:pointer;
+      transition: border-color .18s ease, background .18s ease, transform .06s ease;
+      display:grid;
+      place-items:center;
+      user-select:none;
+    }
+    .iconbtn:hover{ border-color: rgba(124,92,255,.7); background: rgba(15,22,32,.78); }
+    .iconbtn:active{ transform: translateY(1px); }
+
+    .chat{
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 22px 18px 12px;
+      scroll-behavior: auto;
+      min-height: 0; /* flexbox에서 스크롤이 작동하도록 */
+      max-height: 100%; /* 부모 높이를 넘지 않도록 */
+      /* 스크롤 위치 유지 */
+      will-change: scroll-position;
+    }
+    .chat::-webkit-scrollbar{ width: 10px; }
+    .chat::-webkit-scrollbar-thumb{
+      background: rgba(34,48,65,.7);
+      border-radius: 10px;
+      border: 2px solid rgba(11,15,20,.35);
+    }
+
+    .center{
+      max-width: 980px;
+      margin: 0 auto;
+      width: 100%;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+
+    .welcome{
+      border:1px solid rgba(34,48,65,.65);
+      background: rgba(15,22,32,.42);
+      border-radius: var(--radius);
+      padding: 16px 16px;
+      box-shadow: var(--shadow);
+    }
+    .welcome .h{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 8px;
+    }
+    .badge{
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(124,92,255,.55);
+      color: rgba(231,238,248,.92);
+      background: rgba(124,92,255,.12);
+      white-space:nowrap;
+    }
+    .welcome p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .msg{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .avatar{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(15,22,32,.65);
+      display:grid;
+      place-items:center;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(231,238,248,.9);
+      flex:0 0 auto;
+      box-shadow: 0 8px 18px rgba(0,0,0,.18);
+    }
+    .bubble{
+      border:1px solid rgba(34,48,65,.65);
+      background: rgba(15,22,32,.46);
+      border-radius: 14px;
+      padding: 12px 12px;
+      min-width: 0;
+      max-width: 100%;
+      box-shadow: 0 8px 18px rgba(0,0,0,.14);
+    }
+    .bubble.user{
+      background: linear-gradient(135deg, rgba(124,92,255,.18), rgba(56,189,248,.08));
+      border-color: rgba(124,92,255,.35);
+    }
+    .meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 6px;
+      color: rgba(155,176,199,.85);
+      font-size: 11px;
+    }
+    .text{
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(231,238,248,.96);
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top: 10px;
+    }
+    .chip{
+      font-size: 11px;
+      color: rgba(231,238,248,.92);
+      border:1px solid rgba(34,48,65,.75);
+      background: rgba(11,15,20,.22);
+      border-radius: 999px;
+      padding: 4px 8px;
+    }
+
+    .composer{
+      border-top: 1px solid rgba(34,48,65,.7);
+      background: rgba(15,22,32,.58);
+      backdrop-filter: blur(12px);
+      padding: 12px 18px 16px;
+      flex-shrink: 0; /* 고정 크기, 축소되지 않음 */
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+    }
+    .composer .center{
+      gap: 10px;
+    }
+    .inputwrap{
+      border: 1px solid rgba(34,48,65,.75);
+      border-radius: 16px;
+      background: rgba(11,15,20,.30);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:flex-end;
+      gap: 10px;
+      padding: 10px 10px;
+      transition: box-shadow .18s ease, border-color .18s ease;
+    }
+    .inputwrap:focus-within{
+      border-color: rgba(124,92,255,.75);
+      box-shadow: var(--shadow), var(--ring);
+    }
+    textarea{
+      width:100%;
+      border:0;
+      outline:none;
+      resize:none;
+      background: transparent;
+      color: rgba(231,238,248,.98);
+      font-size: 14px;
+      line-height: 1.45;
+      padding: 6px 8px;
+      max-height: 180px;
+      min-height: 42px;
+      font-family: var(--sans);
+    }
+    textarea::placeholder{ color: rgba(155,176,199,.65); }
+
+    .send{
+      border:1px solid rgba(124,92,255,.75);
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(56,189,248,.14));
+      color: rgba(231,238,248,.98);
+      height: 42px;
+      padding: 0 14px;
+      border-radius: 14px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      user-select:none;
+      transition: transform .06s ease, border-color .18s ease, filter .18s ease;
+      white-space:nowrap;
+    }
+    .send:hover{ border-color: rgba(56,189,248,.65); filter: brightness(1.04); }
+    .send:active{ transform: translateY(1px); }
+
+    .hint{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      color: rgba(155,176,199,.82);
+      font-size: 12px;
+      padding: 0 6px;
+    }
+    .hint code{
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border:1px solid rgba(34,48,65,.75);
+      background: rgba(11,15,20,.22);
+      color: rgba(231,238,248,.9);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .app{ grid-template-columns: 1fr; }
+      .sidebar{ display:none; }
+      .topbar .title span{ max-width: 75vw; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div style="min-width:0">
+          <h1>Terrarium</h1>
+          <p id="subtitle">Chat • v0</p>
+        </div>
+      </div>
+
+      <button class="btn primary" id="newChatBtn" type="button" title="새 채팅">
+        <span>＋ 새 채팅</span>
+        <span class="k">⌘K</span>
+      </button>
+
+      <div class="section-title">Recent</div>
+      <div class="history" id="history"></div>
+
+      <div class="sidebar-footer">
+        <div class="pill" title="연결 상태">
+          <span>Backend</span>
+          <span class="dot" id="backendDot"></span>
+        </div>
+        <button class="iconbtn" id="clearAllBtn" title="전체 삭제" type="button">🗑️</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="topbar">
+        <div class="title">
+          <strong id="chatTitle">새 채팅</strong>
+          <span id="chatDesc">질문을 입력하면 대화가 저장돼.</span>
+        </div>
+
+        <div class="actions">
+          <button class="iconbtn" id="copyBtn" title="마지막 답변 복사" type="button">⧉</button>
+          <button class="iconbtn" id="exportBtn" title="JSON 내보내기" type="button">⇩</button>
+          <button class="iconbtn" id="toggleDenseBtn" title="밀도 토글" type="button">≡</button>
+        </div>
+      </header>
+
+      <section class="chat" id="chat">
+        <div class="center" id="chatInner">
+          <div class="welcome" id="welcome">
+            <div class="h">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div class="avatar" aria-hidden="true">TR</div>
+                <div>
+                  <div style="font-size:13px; margin-bottom:2px;">간단 챗 UI v0</div>
+                  <div style="font-size:12px; color:var(--muted);">React로 갈아끼우기 쉬운 구조로만 잡았어.</div>
+                </div>
+              </div>
+              <div class="badge">Minimal • Modern • Dark</div>
+            </div>
+            <p>
+              <b>Enter</b>로 전송, <b>Shift+Enter</b>로 줄바꿈. 왼쪽엔 최근 대화가 쌓여.<br/>
+              백엔드 붙일 땐 JS의 <code>API_ENDPOINT</code>만 바꾸면 돼.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="composer">
+        <div class="center">
+          <div class="inputwrap">
+            <textarea id="input" placeholder="질문을 입력해..." rows="1"></textarea>
+            <button class="send" id="sendBtn" type="button">
+              <span>보내기</span>
+              <span style="opacity:.85">↵</span>
+            </button>
+          </div>
+          <div class="hint">
+            <span>Tip: <code>⌘K</code> 새 채팅 / <code>⌘Enter</code> 전송</span>
+            <span id="status">idle</span>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // ====== Config ======
+    // 백엔드가 준비되면 여기만 바꿔서 붙이면 돼.
+    // 예) FastAPI: POST /api/query { query: "...", mode: "...", profile: "...", raw_text: "" }
+    const API_ENDPOINT = "/api/query"; // 없으면 로컬 에코 모드로 동작함.
+
+    // ====== State ======
+    const storeKey = "terrarium_chat_v0";
+    const state = {
+      chats: [],
+      activeId: null,
+      dense: false,
+      lastAssistantText: ""
+    };
+
+    // ====== DOM ======
+    const $ = (id) => document.getElementById(id);
+    const historyEl = $("history");
+    const chatInnerEl = $("chatInner");
+    const inputEl = $("input");
+    const statusEl = $("status");
+    const chatTitleEl = $("chatTitle");
+    const chatDescEl = $("chatDesc");
+    const backendDotEl = $("backendDot");
+
+    // ====== Utils ======
+    const nowIso = () => new Date().toISOString();
+    const shortTime = (iso) => {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString(undefined, { month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+      } catch { return ""; }
+    };
+
+    const uid = () => (crypto?.randomUUID?.() ?? ("id_" + Math.random().toString(16).slice(2)));
+
+    const save = () => localStorage.setItem(storeKey, JSON.stringify({ chats: state.chats, dense: state.dense }));
+    const load = () => {
+      const raw = localStorage.getItem(storeKey);
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(raw);
+        state.chats = Array.isArray(parsed.chats) ? parsed.chats : [];
+        state.dense = !!parsed.dense;
+      } catch {}
+    };
+
+    const setStatus = (t) => statusEl.textContent = t;
+
+    // ====== Render ======
+    function renderHistory(){
+      historyEl.innerHTML = "";
+      const items = [...state.chats].sort((a,b) => (b.updated_at||"").localeCompare(a.updated_at||""));
+      for (const c of items){
+        const div = document.createElement("div");
+        div.className = "chat-item";
+        div.dataset.id = c.id;
+        const last = c.messages?.slice(-1)?.[0]?.content ?? "대화를 시작해봐";
+        div.innerHTML = `
+          <div class="t">${escapeHtml(c.title || "새 채팅")}</div>
+          <div class="m">${escapeHtml(last)}</div>
+        `;
+        div.addEventListener("click", () => setActiveChat(c.id));
+        historyEl.appendChild(div);
+      }
+    }
+
+    function renderChat(){
+      chatInnerEl.innerHTML = "";
+      const c = getActiveChat();
+
+      const welcome = document.createElement("div");
+      welcome.className = "welcome";
+      welcome.innerHTML = `
+        <div class="h">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="avatar" aria-hidden="true">TR</div>
+            <div>
+              <div style="font-size:13px; margin-bottom:2px;">${escapeHtml(c.title || "새 채팅")}</div>
+              <div style="font-size:12px; color:var(--muted);">${escapeHtml(c.desc || "가벼운 UI v0. 필요하면 바로 확장.")}</div>
+            </div>
+          </div>
+          <div class="badge">${state.dense ? "Dense" : "Comfort"}</div>
+        </div>
+        <p style="margin:0; color:var(--muted); font-size:13px;">
+          <span>최근 업데이트:</span> <code style="font-family:var(--mono); font-size:11px; padding:2px 6px; border-radius:8px; border:1px solid rgba(34,48,65,.75); background:rgba(11,15,20,.22); color:rgba(231,238,248,.9);">
+            ${escapeHtml(shortTime(c.updated_at || nowIso()))}
+          </code>
+        </p>
+      `;
+      chatInnerEl.appendChild(welcome);
+
+      for (const m of (c.messages || [])){
+        chatInnerEl.appendChild(renderMessage(m));
+      }
+
+      // padding spacer
+      const spacer = document.createElement("div");
+      spacer.style.height = state.dense ? "10px" : "24px";
+      chatInnerEl.appendChild(spacer);
+
+      // DOM 업데이트 완료 후 스크롤
+      scrollToBottom();
+    }
+
+    function renderMessage(m){
+      const wrap = document.createElement("div");
+      wrap.className = "msg";
+      const isUser = m.role === "user";
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = isUser ? "ME" : "TR";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble" + (isUser ? " user" : "");
+      bubble.style.padding = state.dense ? "10px 10px" : "12px 12px";
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `
+        <span>${isUser ? "You" : "Assistant"}</span>
+        <span>${escapeHtml(shortTime(m.ts || nowIso()))}</span>
+      `;
+
+      const text = document.createElement("div");
+      text.className = "text";
+      text.textContent = m.content || "";
+
+      bubble.appendChild(meta);
+      bubble.appendChild(text);
+
+      // (옵션) 메타 칩
+      if (!isUser && m.meta && (m.meta.model || m.meta.mode || m.meta.profile || m.meta.tool)){
+        const chips = document.createElement("div");
+        chips.className = "chips";
+        if (m.meta.model) chips.appendChild(chip(`model: ${m.meta.model}`));
+        if (m.meta.mode) chips.appendChild(chip(`mode: ${m.meta.mode}`));
+        if (m.meta.profile) chips.appendChild(chip(`profile: ${m.meta.profile}`));
+        if (m.meta.tool) chips.appendChild(chip(`tool: ${m.meta.tool}`));
+        bubble.appendChild(chips);
+      }
+
+      wrap.appendChild(avatar);
+      wrap.appendChild(bubble);
+      return wrap;
+    }
+
+    function chip(t){
+      const s = document.createElement("span");
+      s.className = "chip";
+      s.textContent = t;
+      return s;
+    }
+
+    function scrollToBottom(smooth = false){
+      const chat = $("chat");
+      if (!chat) return;
+      
+      // DOM 업데이트가 완료된 후 스크롤 (다음 프레임에서 실행)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (smooth) {
+            chat.scrollTo({
+              top: chat.scrollHeight,
+              behavior: 'smooth'
+            });
+          } else {
+            chat.scrollTop = chat.scrollHeight;
+          }
+        });
+      });
+    }
+
+    function escapeHtml(str){
+      return (str ?? "").replace(/[&<>"']/g, (c) => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
+
+    // ====== Chat Ops ======
+    function newChat(){
+      const c = {
+        id: uid(),
+        title: "새 채팅",
+        desc: "간단한 대화",
+        created_at: nowIso(),
+        updated_at: nowIso(),
+        messages: []
+      };
+      state.chats.push(c);
+      state.activeId = c.id;
+      save();
+      renderAll();
+      inputEl.focus();
+    }
+
+    function getActiveChat(){
+      let c = state.chats.find(x => x.id === state.activeId);
+      if (!c){
+        if (state.chats.length === 0) newChat();
+        c = state.chats.find(x => x.id === state.activeId);
+      }
+      return c;
+    }
+
+    function setActiveChat(id){
+      state.activeId = id;
+      const c = getActiveChat();
+      chatTitleEl.textContent = c.title || "채팅";
+      chatDescEl.textContent = c.desc || "";
+      save();
+      renderAll();
+    }
+
+    function appendMessage(role, content, meta){
+      const c = getActiveChat();
+      c.messages.push({ role, content, ts: nowIso(), meta: meta || null });
+      c.updated_at = nowIso();
+      if (!c.title || c.title === "새 채팅"){
+        if (role === "user"){
+          c.title = content.trim().slice(0, 22) || "새 채팅";
+        }
+      }
+      save();
+      renderHistory();
+      renderChat();
+    }
+
+    // ====== Backend Call ======
+    async function callBackend(userText){
+      // 백엔드가 없으면 에코 모드
+      try{
+        console.log("[API] 요청 시작:", userText);
+        const startTime = Date.now();
+        
+        // 현재 채팅의 이전 메시지들을 대화 히스토리로 준비 (마지막 10개만)
+        const c = getActiveChat();
+        const history = (c.messages || [])
+          .slice(-10)  // 최근 10개만 전송 (너무 길어지지 않도록)
+          .map(m => ({
+            role: m.role,
+            content: m.content
+          }));
+        
+        console.log("[API] 대화 히스토리:", history.length, "개 메시지");
+        
+        const res = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: userText,
+            mode: "ephemeral",
+            profile: "default",
+            raw_text: "",
+            chat_history: history.length > 0 ? history : undefined
+          })
+        });
+
+        const elapsed = Date.now() - startTime;
+        console.log("[API] 응답 받음:", res.status, `(${elapsed}ms)`);
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error("[API] 에러 응답:", res.status, errorText);
+          throw new Error(`HTTP ${res.status}: ${errorText}`);
+        }
+        
+        const data = await res.json();
+        console.log("[API] 응답 데이터:", data);
+
+        // 예상: { answer: "...", llm_trace: { model: ... }, meta: { mode, profile, tool } }
+        const answer = (data && data.answer) ? String(data.answer) : "(empty)";
+        const meta = {
+          model: data?.llm_trace?.model,
+          mode: data?.meta?.mode,
+          profile: data?.meta?.profile,
+          tool: data?.meta?.tool
+        };
+        return { answer, meta, ok: true };
+      }catch(e){
+        console.error("[API] 에러 발생:", e);
+        return { answer: `에러: ${e.message}`, meta: { model: "error" }, ok: false };
+      }
+    }
+
+    async function send(){
+      const text = inputEl.value.trim();
+      console.log("[Send] 입력값:", JSON.stringify(text), "길이:", text.length);
+      
+      if (!text) {
+        console.log("[Send] 빈 텍스트, 무시");
+        return;
+      }
+
+      inputEl.value = "";
+      resizeTextarea();
+      appendMessage("user", text);
+      
+      // 사용자 메시지 추가 후 스크롤
+      scrollToBottom();
+
+      setStatus("생각 중... (LLM 응답 대기 중)");
+      const sendBtn = $("sendBtn");
+      sendBtn.disabled = true;
+      
+      try {
+        const { answer, meta, ok } = await callBackend(text);
+        state.lastAssistantText = answer;
+
+        appendMessage("assistant", answer, meta);
+        
+        // 어시스턴트 응답 추가 후 스크롤
+        scrollToBottom();
+
+        // backend 표시 (대충)
+        backendDotEl.style.background = ok ? "var(--good)" : "var(--warn)";
+        backendDotEl.style.boxShadow = ok ? "0 0 0 3px rgba(34,197,94,.16)" : "0 0 0 3px rgba(245,158,11,.16)";
+
+        setStatus(ok ? "완료" : "에러 발생");
+      } catch (error) {
+        console.error("[Send] 에러:", error);
+        appendMessage("assistant", `에러가 발생했습니다: ${error.message}`, { model: "error" });
+        scrollToBottom();
+        setStatus("에러");
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+
+    // ====== Actions ======
+    function exportJSON(){
+      const payload = { chats: state.chats, exported_at: nowIso() };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "terrarium_chat_export.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function copyLast(){
+      const t = state.lastAssistantText || "";
+      if (!t) return;
+      try { await navigator.clipboard.writeText(t); setStatus("copied"); }
+      catch { setStatus("copy failed"); }
+    }
+
+    function toggleDense(){
+      state.dense = !state.dense;
+      save();
+      renderChat();
+    }
+
+    function clearAll(){
+      state.chats = [];
+      state.activeId = null;
+      state.lastAssistantText = "";
+      save();
+      newChat();
+    }
+
+    // ====== Input UX ======
+    function resizeTextarea(){
+      inputEl.style.height = "auto";
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 180) + "px";
+    }
+
+    inputEl.addEventListener("input", resizeTextarea);
+    
+    inputEl.addEventListener("keydown", (e) => {
+      // IME 입력 중일 때는 Enter 키 무시 (한글 조합 중)
+      if (e.isComposing) {
+        console.log("[Keydown] IME 조합 중, Enter 무시");
+        return;
+      }
+      
+      // Enter: send / Shift+Enter: newline
+      if (e.key === "Enter" && !e.shiftKey){
+        e.preventDefault();
+        console.log("[Keydown] Enter 키 눌림, 전송");
+        send();
+      }
+      // Cmd+Enter: send
+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)){
+        e.preventDefault();
+        console.log("[Keydown] Cmd+Enter 키 눌림, 전송");
+        send();
+      }
+      // Cmd+K: new chat
+      if ((e.metaKey || e.ctrlKey) && (e.key.toLowerCase() === "k")){
+        e.preventDefault();
+        newChat();
+      }
+    });
+
+    // ====== Wire buttons ======
+    $("sendBtn").addEventListener("click", send);
+    $("newChatBtn").addEventListener("click", newChat);
+    $("exportBtn").addEventListener("click", exportJSON);
+    $("copyBtn").addEventListener("click", copyLast);
+    $("toggleDenseBtn").addEventListener("click", toggleDense);
+    $("clearAllBtn").addEventListener("click", clearAll);
+
+    // ====== Init ======
+    function renderAll(){
+      renderHistory();
+      renderChat();
+      const c = getActiveChat();
+      chatTitleEl.textContent = c.title || "채팅";
+      chatDescEl.textContent = c.desc || "";
+    }
+
+    load();
+    if (state.chats.length === 0) newChat();
+    else {
+      state.activeId = state.chats[0].id;
+      renderAll();
+    }
+    resizeTextarea();
+    inputEl.focus();
+  </script>
+</body>
+</html>
