@@ -14,6 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 애플리케이션 코드 복사
 COPY app/ ./app/
 COPY static/ ./static/
+COPY data/ ./data/
 
 # 데이터 디렉토리 생성
 RUN mkdir -p /app/data

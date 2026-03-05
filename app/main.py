@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.api import health
-from app.api.routes import query
+from app.api.routes import query, index
 
 app = FastAPI(
     title="Terrarium RAG Engine",
@@ -25,6 +25,7 @@ app.add_middleware(
 # API 라우터 등록
 app.include_router(health.router)
 app.include_router(query.router, prefix="/api")
+app.include_router(index.router, prefix="/api")
 
 # Static 파일 서빙 (HTML 등)
 import os

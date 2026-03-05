@@ -47,7 +47,7 @@ class HTTPAdapter:
                 
                 response.raise_for_status()
                 return response.text
-        except httpx.TimeoutError:
+        except httpx.TimeoutException:
             raise TimeoutError(f"HTTP request timeout after {timeout}s")
         except Exception as e:
             logger.error(

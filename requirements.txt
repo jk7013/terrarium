@@ -12,6 +12,7 @@ lxml>=4.9.0
 
 # 데이터베이스
 sqlalchemy>=2.0.0
+psycopg[binary]>=3.2.0
 # sqlite3는 Python 표준 라이브러리
 
 # RAG 라이브러리 (향후 추가)

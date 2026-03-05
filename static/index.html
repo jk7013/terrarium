@@ -688,6 +688,35 @@
         bubble.appendChild(chips);
       }
 
+      if (!isUser && Array.isArray(m.retrievalTrace) && m.retrievalTrace.length > 0){
+        const block = document.createElement("details");
+        block.style.marginTop = "10px";
+        block.style.border = "1px solid rgba(34,48,65,.75)";
+        block.style.borderRadius = "10px";
+        block.style.padding = "8px";
+        const summary = document.createElement("summary");
+        summary.textContent = `Retrieved Chunks (${m.retrievalTrace.length})`;
+        summary.style.cursor = "pointer";
+        summary.style.fontSize = "12px";
+        summary.style.color = "var(--muted)";
+        block.appendChild(summary);
+        const list = document.createElement("div");
+        list.style.marginTop = "8px";
+        for (const r of m.retrievalTrace){
+          const row = document.createElement("div");
+          row.style.marginBottom = "8px";
+          row.style.fontSize = "12px";
+          row.style.lineHeight = "1.4";
+          row.innerHTML = `
+            <div>[${Number(r.score ?? 0).toFixed(3)}] ${escapeHtml(r.filepath || "unknown")} p.${escapeHtml(String(r.page_no ?? "-"))} #${escapeHtml(String(r.chunk_no ?? "-"))}</div>
+            <div style="color:var(--muted); margin-top:2px;">${escapeHtml(r.text_preview || "")}</div>
+          `;
+          list.appendChild(row);
+        }
+        block.appendChild(list);
+        bubble.appendChild(block);
+      }
+
       wrap.appendChild(avatar);
       wrap.appendChild(bubble);
       return wrap;
@@ -760,9 +789,9 @@
       renderAll();
     }
 
-    function appendMessage(role, content, meta){
+    function appendMessage(role, content, meta, retrievalTrace){
       const c = getActiveChat();
-      c.messages.push({ role, content, ts: nowIso(), meta: meta || null });
+      c.messages.push({ role, content, ts: nowIso(), meta: meta || null, retrievalTrace: retrievalTrace || null });
       c.updated_at = nowIso();
       if (!c.title || c.title === "새 채팅"){
         if (role === "user"){
@@ -824,10 +853,13 @@
           profile: data?.meta?.profile,
           tool: data?.meta?.tool
         };
-        return { answer, meta, ok: true };
+        const retrievalTrace = Array.isArray(data?.retrieval_trace?.vector_results)
+          ? data.retrieval_trace.vector_results
+          : [];
+        return { answer, meta, retrievalTrace, ok: true };
       }catch(e){
         console.error("[API] 에러 발생:", e);
-        return { answer: `에러: ${e.message}`, meta: { model: "error" }, ok: false };
+        return { answer: `에러: ${e.message}`, meta: { model: "error" }, retrievalTrace: [], ok: false };
       }
     }
 
@@ -852,10 +884,10 @@
       sendBtn.disabled = true;
       
       try {
-        const { answer, meta, ok } = await callBackend(text);
+        const { answer, meta, retrievalTrace, ok } = await callBackend(text);
         state.lastAssistantText = answer;
 
-        appendMessage("assistant", answer, meta);
+        appendMessage("assistant", answer, meta, retrievalTrace);
         
         // 어시스턴트 응답 추가 후 스크롤
         scrollToBottom();

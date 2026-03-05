@@ -42,7 +42,7 @@ class LocalAdapter:
                 result = await asyncio.wait_for(function(**arguments), timeout=timeout)
             else:
                 # 동기 함수를 별도 스레드에서 실행
-                loop = asyncio.get_event_loop()
+                loop = asyncio.get_running_loop()
                 result = await asyncio.wait_for(
                     loop.run_in_executor(None, lambda: function(**arguments)),
                     timeout=timeout

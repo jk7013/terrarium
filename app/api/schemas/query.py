@@ -100,6 +100,10 @@ class QueryMeta(BaseModel):
         default=None,
         description="사용된 툴 이름 (예: weather, time)",
     )
+    retrieval: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="리트리벌 메타데이터 (top_k, source 등)",
+    )
 
 
 class QueryResponse(BaseModel):

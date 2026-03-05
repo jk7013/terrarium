@@ -4,6 +4,7 @@
 """
 
 from datetime import datetime
+import re
 import pytz
 
 
@@ -43,8 +44,6 @@ def is_time_query(query: str) -> bool:
         "시간", "날짜", "요일", "지금", "현재", "오늘",
         "time", "date", "day", "now", "current", "today"
     ]
-    
-    import re
     
     # 단어 경계를 고려한 매칭
     for keyword in time_keywords:

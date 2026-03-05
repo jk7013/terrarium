@@ -8,3 +8,5 @@
   처음 화면이 안 뜨던 상태에서, 챗봇이 실제로 답을 하는 단계까지.
 - `002_terrarium_portfolio_part1.md`  
   포트폴리오 관점에서 본 아키텍처, 요청 흐름, 툴 라우팅, Docker/Ollama 이슈 해결 기록.
+- `003_terrarium_refactor_review_part2.md`  
+  전체 코드리뷰 결과와 런타임 안정성/유지보수성 개선 리팩토링 기록.

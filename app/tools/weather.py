@@ -4,9 +4,128 @@ AccuWeather에서 서울의 현재 날씨를 가져옵니다.
 """
 
 import re
+import json
 from typing import Optional
 import httpx
 from bs4 import BeautifulSoup
+
+
+def _is_valid_temperature(value: int) -> bool:
+    return -50 <= value <= 50
+
+
+def _extract_temperature(soup: BeautifulSoup, html: str) -> Optional[int]:
+    # 방법 1: JSON-LD 스키마에서 추출
+    json_ld_scripts = soup.find_all('script', type='application/ld+json')
+    for script in json_ld_scripts:
+        try:
+            data = json.loads(script.string or "")
+        except (TypeError, json.JSONDecodeError):
+            continue
+        if isinstance(data, dict) and 'temperature' in data:
+            try:
+                temp_val = int(data['temperature'])
+            except (TypeError, ValueError):
+                continue
+            if _is_valid_temperature(temp_val):
+                return temp_val
+
+    # 방법 2: data-temp 속성에서 추출
+    temp_elements = soup.find_all(attrs={'data-temp': True})
+    if temp_elements:
+        try:
+            temp_val = int(temp_elements[0]['data-temp'])
+            if _is_valid_temperature(temp_val):
+                return temp_val
+        except (TypeError, ValueError):
+            pass
+
+    # 방법 3: class에 "temp"가 포함된 요소에서 추출
+    temp_elements = soup.find_all(class_=re.compile(r'temp', re.I))
+    for elem in temp_elements:
+        text = elem.get_text(strip=True)
+        temp_match = re.search(r'(-?\d+)', text)
+        if not temp_match:
+            continue
+        try:
+            temp_val = int(temp_match.group(1))
+        except (TypeError, ValueError):
+            continue
+        if _is_valid_temperature(temp_val):
+            return temp_val
+
+    # 방법 4: 정규식으로 JSON 데이터에서 추출
+    temp_match = re.search(r'["\']temp(erature)?["\']\s*:\s*(-?\d+)', html, re.IGNORECASE)
+    if temp_match:
+        try:
+            temp_val = int(temp_match.group(2))
+        except (TypeError, ValueError):
+            return None
+        if _is_valid_temperature(temp_val):
+            return temp_val
+
+    return None
+
+
+def _extract_condition(soup: BeautifulSoup, html: str) -> Optional[str]:
+    blacklist = [
+        "get accuweather",
+        "browser notifications",
+        "alerts",
+        "subscribe",
+        "download",
+        "install",
+        "sign up",
+        "create account",
+        "advertisement",
+        "ad",
+        "cookie",
+        "privacy policy"
+    ]
+    weather_keywords = [
+        "sunny", "cloudy", "rain", "snow", "clear", "partly", "mostly",
+        "맑음", "흐림", "비", "눈", "구름", "맑은", "흐린"
+    ]
+
+    # 방법 1: phrase 속성
+    phrase_matches = re.findall(r'["\']phrase["\']\s*:\s*["\']([^"\']+)["\']', html, re.IGNORECASE)
+    for match in phrase_matches:
+        match_lower = match.lower()
+        if any(blackword in match_lower for blackword in blacklist):
+            continue
+        if len(match) < 50 and (any(keyword in match_lower for keyword in weather_keywords) or len(match) < 20):
+            return match
+
+    # 방법 2: condition 속성
+    cond_matches = re.findall(r'["\']condition["\']\s*:\s*["\']([^"\']+)["\']', html, re.IGNORECASE)
+    for match in cond_matches:
+        match_lower = match.lower()
+        if any(blackword in match_lower for blackword in blacklist):
+            continue
+        if len(match) < 50:
+            return match
+
+    # 방법 3: HTML 요소에서 상태 추출
+    condition_elements = soup.find_all(class_=re.compile(r'(condition|phrase|weather|status)', re.I))
+    for elem in condition_elements:
+        text = elem.get_text(strip=True)
+        if not text or len(text) >= 50:
+            continue
+        text_lower = text.lower()
+        if any(blackword in text_lower for blackword in blacklist):
+            continue
+        if any(keyword in text_lower for keyword in ["sunny", "cloudy", "rain", "snow", "clear", "맑음", "흐림", "비", "눈"]) or len(text) < 20:
+            return text
+
+    return None
+
+
+def _clean_condition(condition: Optional[str]) -> Optional[str]:
+    if not condition:
+        return None
+    cleaned = re.sub(r'-?\d+\s*°?[CF]', '', condition).strip()
+    cleaned = re.sub(r'[^\w\s가-힣]', '', cleaned).strip()
+    return cleaned or None
 
 
 def get_weather() -> str:
@@ -36,128 +155,8 @@ def get_weather() -> str:
         # BeautifulSoup으로 HTML 파싱
         soup = BeautifulSoup(html, 'lxml')
         
-        # 온도 추출 시도 (다양한 방법 시도)
-        temperature = None
-        condition = None
-        
-        # 방법 1: JSON-LD 스키마에서 추출
-        json_ld_scripts = soup.find_all('script', type='application/ld+json')
-        for script in json_ld_scripts:
-            try:
-                import json
-                data = json.loads(script.string)
-                if isinstance(data, dict) and 'temperature' in data:
-                    temperature = int(data['temperature'])
-                if isinstance(data, dict) and 'condition' in data:
-                    condition = data['condition']
-            except:
-                pass
-        
-        # 방법 2: data 속성에서 온도 찾기
-        if not temperature:
-            temp_elements = soup.find_all(attrs={'data-temp': True})
-            if temp_elements:
-                try:
-                    temperature = int(temp_elements[0]['data-temp'])
-                except:
-                    pass
-        
-        # 방법 3: class에 "temp"가 포함된 요소 찾기
-        if not temperature:
-            temp_elements = soup.find_all(class_=re.compile(r'temp', re.I))
-            for elem in temp_elements:
-                text = elem.get_text(strip=True)
-                temp_match = re.search(r'(-?\d+)', text)
-                if temp_match:
-                    try:
-                        temp_val = int(temp_match.group(1))
-                        # 합리적인 온도 범위 체크 (-50 ~ 50도)
-                        if -50 <= temp_val <= 50:
-                            temperature = temp_val
-                            break
-                    except:
-                        pass
-        
-        # 방법 4: 정규식으로 JSON 데이터에서 추출
-        if not temperature:
-            # "temp": 숫자 또는 "temperature": 숫자 패턴
-            temp_match = re.search(r'["\']temp(erature)?["\']\s*:\s*(-?\d+)', html, re.IGNORECASE)
-            if temp_match:
-                try:
-                    temp_val = int(temp_match.group(2))
-                    if -50 <= temp_val <= 50:
-                        temperature = temp_val
-                except:
-                    pass
-        
-        # 날씨 상태 추출 (더 정확한 파싱)
-        # 알림/광고 텍스트 필터링을 위한 블랙리스트
-        blacklist = [
-            "get accuweather",
-            "browser notifications",
-            "alerts",
-            "subscribe",
-            "download",
-            "install",
-            "sign up",
-            "create account",
-            "advertisement",
-            "ad",
-            "cookie",
-            "privacy policy"
-        ]
-        
-        # 방법 1: phrase 속성 찾기 (블랙리스트 필터링)
-        if not condition:
-            phrase_matches = re.findall(r'["\']phrase["\']\s*:\s*["\']([^"\']+)["\']', html, re.IGNORECASE)
-            for match in phrase_matches:
-                match_lower = match.lower()
-                # 블랙리스트에 없는 것만 사용
-                if not any(blackword in match_lower for blackword in blacklist):
-                    # 합리적인 날씨 상태인지 확인 (너무 길지 않고, 날씨 관련 키워드 포함)
-                    if len(match) < 50:  # 너무 긴 텍스트는 제외
-                        weather_keywords = ["sunny", "cloudy", "rain", "snow", "clear", "partly", "mostly", 
-                                          "맑음", "흐림", "비", "눈", "구름", "맑은", "흐린"]
-                        if any(keyword in match_lower for keyword in weather_keywords) or len(match) < 20:
-                            condition = match
-                            break
-        
-        # 방법 2: condition 속성 찾기 (블랙리스트 필터링)
-        if not condition:
-            cond_matches = re.findall(r'["\']condition["\']\s*:\s*["\']([^"\']+)["\']', html, re.IGNORECASE)
-            for match in cond_matches:
-                match_lower = match.lower()
-                if not any(blackword in match_lower for blackword in blacklist):
-                    if len(match) < 50:
-                        condition = match
-                        break
-        
-        # 방법 3: HTML 요소에서 날씨 상태 찾기
-        if not condition:
-            # class에 "condition", "phrase", "weather" 등이 포함된 요소 찾기
-            condition_elements = soup.find_all(class_=re.compile(r'(condition|phrase|weather|status)', re.I))
-            for elem in condition_elements:
-                text = elem.get_text(strip=True)
-                if text and len(text) < 50:
-                    text_lower = text.lower()
-                    if not any(blackword in text_lower for blackword in blacklist):
-                        # 날씨 관련 키워드가 있거나 짧은 텍스트면 사용
-                        if any(keyword in text_lower for keyword in ["sunny", "cloudy", "rain", "snow", "clear", 
-                                                                     "맑음", "흐림", "비", "눈"]) or len(text) < 20:
-                            condition = text
-                            break
-        
-        # 날씨 상태 정제 (온도 정보 제거, 불필요한 문자 제거)
-        if condition:
-            # "4°CCloudy" 같은 형식에서 온도 부분 제거
-            condition = re.sub(r'-?\d+\s*°?[CF]', '', condition)  # 온도 단위 제거
-            condition = condition.strip()
-            # 특수문자나 기호 제거 (단, 한글/영문/공백만 허용)
-            condition = re.sub(r'[^\w\s가-힣]', '', condition)
-            condition = condition.strip()
-            # 빈 문자열이 되면 None으로
-            if not condition:
-                condition = None
+        temperature = _extract_temperature(soup, html)
+        condition = _clean_condition(_extract_condition(soup, html))
         
         # 결과 구성 (자연스러운 문장)
         if temperature is not None:
@@ -244,9 +243,6 @@ def is_weather_query(query: str) -> bool:
         "맑음", "흐림", "바람", "습도", "강수",
         "weather", "temperature"
     ]
-    
-    # 단어 경계를 고려한 매칭 (예: "png"가 "비"로 인식되지 않도록)
-    import re
     
     # 명확한 날씨 키워드 확인
     for keyword in weather_keywords:
