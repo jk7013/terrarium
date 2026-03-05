@@ -1,107 +1,214 @@
-# /query API v0 스펙 (Terrarium)
+# Terrarium API 스펙
 
-## 목적
-
-- Terrarium RAG 엔진의 핵심 엔드포인트.
-- 한 번의 요청으로:
-  - 사용자의 질문을 받고
-  - RAG 파이프라인을 실행하고
-  - 최종 답변 + 컨텍스트 + 트레이스를 함께 반환한다.
+> 기준일: 2026-03-05
+> Base URL: `http://localhost:9000`
 
 ---
 
-## Request (v0)
+## POST /api/query
 
-`POST /api/query`
+RAG 파이프라인을 실행하고 답변을 반환합니다.
 
-```jsonc
+### 요청
+
+```json
 {
-  "mode": "ephemeral",        // "ephemeral" | "corpus" (v0는 ephemeral만 사용)
-  "query": "사용자 질문 텍스트",
-  "raw_text": "한 번에 던질 원문 텍스트(파일 대신)",
-
-  "profile": "default",       // RAG 프로파일 이름 (향후 확장용)
+  "query": "계약 해지 절차를 알려줘",
+  "mode": "corpus",
+  "profile": "default",
+  "raw_text": null,
+  "chat_history": [
+    { "role": "user", "content": "이전 질문" },
+    { "role": "assistant", "content": "이전 답변" }
+  ],
   "options": {
-    "top_k": 10,              // 리트리버 단계에서 가져올 최대 후보 수
-    "final_contexts": 3       // LLM에 최종으로 넣을 컨텍스트 개수
+    "top_k": 6,
+    "final_contexts": 3
   }
 }
 ```
 
-### 필드 설명
+| 필드 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| query | string | O | 사용자 질문 |
+| mode | string | X | `ephemeral` (raw_text 사용) / `corpus` (벡터 검색, 기본값) |
+| profile | string | X | RAG 프로파일 (기본: `default`) |
+| raw_text | string | X | ephemeral 모드 시 직접 전달할 텍스트 |
+| chat_history | array | X | 멀티턴 대화 이력 |
+| options.top_k | int | X | 검색 후보 수 (기본: 6) |
+| options.final_contexts | int | X | LLM에 전달할 컨텍스트 수 (기본: 3) |
 
-- **mode**
-  - `"ephemeral"`: 요청마다 넘어오는 `raw_text`를 사용해 1회성 RAG 수행
-  - `"corpus"`: 사전에 색인된 코퍼스를 사용하는 모드 (v0에서는 구현 X, 향후 추가)
-- **query**
-  - 사용자의 자연어 질문
-- **raw_text**
-  - `mode="ephemeral"`일 때만 사용.
-  - 첨부파일 파싱의 초기 버전으로, 텍스트 전체를 한 번에 넣는 용도.
-- **profile**
-  - RAG 전략(임베딩 모델, 리랭커, 검색 조합 등)을 구분하기 위한 이름.
-- **options.top_k**
-  - 리트리버 단계에서 가져올 최대 후보 청크 수.
-- **options.final_contexts**
-  - LLM에 실제로 넣을 상위 컨텍스트 개수.
+### 처리 흐름
 
----
+```
+1. 툴 감지 (날씨/시간 질문?)
+   ├─ Yes → 툴 실행 → 결과를 컨텍스트로 LLM 호출
+   └─ No → RAG 파이프라인
+              ├─ 쿼리 확장 (동의어, 표현 정규화)
+              ├─ 벡터 검색 (pgvector 코사인 유사도)
+              ├─ 컨텍스트 선별 (문자 수 제한)
+              └─ LLM 호출 (Ollama)
+```
 
-## Response (v0)
+### 응답
 
-```jsonc
+```json
 {
-  "trace_id": "uuid-같은-값",
-
+  "trace_id": "uuid",
   "answer": "최종 답변 텍스트",
-
   "contexts": [
     {
       "chunk_id": "c_1",
-      "document_id": "d_ephemeral",
+      "document_id": "d_1",
       "text": "선택된 컨텍스트 텍스트",
-      "score": 1.0,
-      "meta": {}
+      "score": 0.85,
+      "meta": {
+        "filepath": "docs/contract.jsonl",
+        "page_no": 3,
+        "chunk_no": 12,
+        "distance": 0.15
+      }
     }
   ],
-
   "retrieval_trace": {
-    "query_expansions": [],
+    "query_expansions": ["계약 해지 절차", "계약 해지 방법"],
     "bm25_results": [],
-    "vector_results": [],
+    "vector_results": [
+      { "chunk_id": "c_1", "score": 0.85, "text": "..." }
+    ],
     "reranked_results": []
   },
-
   "llm_trace": {
-    "model": "dummy-llm-v0",
-    "prompt": "LLM에 실제로 전달된 프롬프트",
-    "output": "LLM가 생성한 응답 텍스트",
-    "latency_ms": 0,
+    "model": "qwen3:4b",
+    "prompt": "시스템 프롬프트 + 컨텍스트 + 질문",
+    "output": "LLM 원본 응답",
+    "latency_ms": 1234,
     "input_tokens": null,
     "output_tokens": null
   },
-
   "meta": {
-    "mode": "ephemeral",
+    "mode": "corpus",
     "profile": "default",
-    "timestamp": "2025-11-27T12:34:56Z",
-    "status": "success"
+    "timestamp": "2026-03-05T12:00:00Z",
+    "status": "success",
+    "tool": null
   }
 }
 ```
 
-### 필드 설명
+| 필드 | 설명 |
+|------|------|
+| trace_id | 요청 식별 UUID |
+| answer | LLM 최종 답변 |
+| contexts | LLM에 전달된 컨텍스트 목록 |
+| retrieval_trace | 검색 과정 추적 (확장 쿼리, 벡터 결과) |
+| llm_trace | LLM 호출 추적 (모델, 프롬프트, 지연시간) |
+| meta.tool | 사용된 툴 (`weather` / `time` / `null`) |
+| meta.status | `success` / `error` / `llm_error` |
 
-- **trace_id**
-  - 이 요청 전체를 식별하는 ID (로그/트레이스 연동용)
-- **answer**
-  - LLM 최종 답변 텍스트
-- **contexts[]**
-  - LLM에 들어간(또는 들어갈 수 있었던) 컨텍스트 목록
-- **retrieval_trace**
-  - RAG 검색/리랭킹 과정에서 어떤 후보들이 있었는지에 대한 요약
-  - v0에서는 빈 배열 위주로 두고, 점점 채워 넣는다.
-- **llm_trace**
-  - 어떤 모델에 어떤 프롬프트를 넣어서 어떤 응답을 받았는지 기록
-- **meta**
-  - 모드/프로파일/시간/성공 여부 등 공통 메타데이터
+---
+
+## POST /api/index
+
+JSONL 파일을 읽어 문서를 인덱싱합니다.
+
+### 요청
+
+```json
+{
+  "path": "data/documents/corpus.jsonl",
+  "rebuild": false
+}
+```
+
+| 필드 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| path | string | O | JSONL 파일 경로 |
+| rebuild | bool | X | true면 기존 데이터 삭제 후 재인덱싱 |
+
+### 인덱싱 파이프라인
+
+```
+JSONL 로드 → 단락 인식 청킹 (900자/180자 오버랩)
+           → BGE-m3 임베딩 (1024차원)
+           → 키워드 추출
+           → pgvector upsert (documents + chunks)
+```
+
+### 응답
+
+```json
+{
+  "ok": true,
+  "docs": 45,
+  "chunks": 312,
+  "elapsed_ms": 8500
+}
+```
+
+---
+
+## GET /api/index/status
+
+인덱싱 상태를 조회합니다.
+
+### 응답
+
+```json
+{
+  "document_count": 45,
+  "chunk_count": 312,
+  "latest_chunk_at": "2026-03-05T00:00:00Z"
+}
+```
+
+---
+
+## GET /health
+
+헬스체크 엔드포인트.
+
+### 응답
+
+```json
+{ "status": "ok" }
+```
+
+---
+
+## 프롬프트 팩 API
+
+### POST /api/prompts/render
+
+프롬프트 팩을 렌더링하여 최종 messages 배열을 반환합니다 (디버깅/테스트용).
+
+```json
+// 요청
+{
+  "pack_id": "default",
+  "variables": { "tone": "concise", "language": "ko" },
+  "query": "오늘 날씨 알려줘",
+  "chat_history": [],
+  "contexts": []
+}
+
+// 응답
+{
+  "pack_id": "default",
+  "prompt_hash": "sha256...",
+  "variables_used": { "tone": "concise", "language": "ko" },
+  "messages": [
+    { "role": "system", "content": "..." },
+    { "role": "user", "content": "..." }
+  ],
+  "evidence_summary": []
+}
+```
+
+### GET /api/prompts/packs
+
+등록된 프롬프트 팩 목록을 반환합니다.
+
+### GET /api/prompts/packs/{pack_id}
+
+특정 팩의 템플릿, 변수 스키마, 정책을 조회합니다.

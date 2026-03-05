@@ -33,4 +33,13 @@ logs/
 .DS_Store
 Thumbs.db
 
+# pytest
+.pytest_cache/
 
+# ─────────────────────────────────────────
+# Internal docs (AI tool contexts, internal dev notes)
+# ─────────────────────────────────────────
+docs/chatGPT/
+docs/cursor/
+docs/CURSOR_GUIDE.md
+docs/concepts/
