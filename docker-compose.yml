@@ -24,7 +24,8 @@ services:
     ports:
       - "127.0.0.1:5433:5432"
     volumes:
-      - terrarium_pgdata:/var/lib/postgresql/data
+      - docker_terrarium_pgdata:/var/lib/postgresql/data
+      - ./app/db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
     restart: unless-stopped
     networks:
       - terrarium
@@ -36,8 +37,10 @@ services:
 
 networks:
   terrarium:
-    name: terrarium
+    external: true
+    name: docker_default
 
 volumes:
-  terrarium_pgdata:
-
+  docker_terrarium_pgdata:
+    external: true
+    name: docker_terrarium_pgdata

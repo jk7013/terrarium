@@ -28,6 +28,14 @@ git repo -> docker image build -> terrarium-app container
 
 No production or local fix should be applied by editing the running container directly.
 
+2026-07-08 operations update:
+
+- `terrarium-app` is now running from this repository via `docker compose -p docker up -d --build`.
+- `terrarium-pgvector` keeps the existing `docker_terrarium_pgdata` volume.
+- Both app and database ports are bound to `127.0.0.1`.
+- The previous runtime containers were preserved as `terrarium-app-runtime-backup-20260708` and `terrarium-pgvector-runtime-backup-20260708`.
+- A pre-replacement database dump was saved under the Jido workspace backup directory.
+
 ## Local Setup
 
 1. Copy `.env.example` to `.env`.
@@ -40,6 +48,15 @@ docker compose up -d --build
 
 The Dockerfile uses `requirements.lock.txt`, recovered from the running container with `pip freeze`.
 Keep `requirements.txt` as the human-readable dependency intent, and update the lock file only after testing a rebuilt image.
+
+The compose file intentionally uses the existing external Docker resources:
+
+```text
+network: docker_default
+volume:  docker_terrarium_pgdata
+```
+
+This keeps Jido and Terrarium on the same local Docker network while preserving the existing Terrarium database.
 
 Terrarium API:
 
