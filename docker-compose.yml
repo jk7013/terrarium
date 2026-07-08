@@ -1,0 +1,43 @@
+services:
+  terrarium-app:
+    build:
+      context: .
+    image: terrarium-app:local
+    container_name: terrarium-app
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:9000:9000"
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - terrarium
+
+  terrarium-pgvector:
+    image: pgvector/pgvector:pg16
+    container_name: terrarium-pgvector
+    environment:
+      POSTGRES_DB: ${DB_NAME:-terrarium}
+      POSTGRES_USER: ${DB_USER:-terrarium}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change-me}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - terrarium_pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - terrarium
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-terrarium} -d ${DB_NAME:-terrarium}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  terrarium:
+    name: terrarium
+
+volumes:
+  terrarium_pgdata:
+

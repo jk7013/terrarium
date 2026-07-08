@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+
+.env
+.env.*
+!.env.example
+
+logs/
+*.log
+
+# Runtime/local corpus data. Keep ingestion sources outside git unless explicitly sanitized.
+data/
+
+# Local model/cache artifacts
+.cache/
+models/
+

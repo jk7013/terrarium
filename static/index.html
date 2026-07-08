@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terrarium</title>
+  <style>
+    :root{
+      --bg:#f5f7fb; --panel:#ffffff; --panel-soft:#f8fafc; --line:#dbe3ef; --text:#0f172a; --muted:#64748b;
+      --accent:#2563eb; --accent-soft:#dbeafe; --good:#16a34a; --warn:#d97706; --bad:#dc2626;
+      --radius:14px; --shadow:0 8px 22px rgba(15,23,42,.06); --shadow-sm:0 3px 10px rgba(15,23,42,.05);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: "SF Pro Display", "Pretendard", "Noto Sans KR", system-ui, -apple-system, sans-serif;
+    }
+    *{box-sizing:border-box} html,body{margin:0;height:100%} body{font-family:var(--sans);background:radial-gradient(circle at top left,#e9f1ff 0,transparent 28%),linear-gradient(180deg,#f7f9fc 0,#eef4fb 100%);color:var(--text)}
+    .app{display:grid;grid-template-columns:64px 1fr;height:100vh;overflow:hidden}
+    .sidebar{background:rgba(255,255,255,.78);backdrop-filter:blur(16px);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:12px 8px;gap:10px}
+    .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#38bdf8);color:#fff;display:grid;place-items:center;font-weight:700;box-shadow:var(--shadow-sm)}
+    .nav{display:flex;flex-direction:column;gap:8px;align-items:center;margin-top:6px;flex:1;width:100%}
+    .navbtn{width:36px;height:36px;border-radius:10px;border:1px solid transparent;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:.18s}
+    .navbtn:hover,.navbtn.active{background:var(--accent-soft);color:var(--accent);border-color:#bfdbfe}
+    .main{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.82);backdrop-filter:blur(16px)}
+    .title strong{font-size:21px;display:block;letter-spacing:-.02em}.title span{font-size:13px;color:var(--muted)}
+    .top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .select,.button,.seg button,.tab{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;font:inherit;color:var(--text)}
+    .button{cursor:pointer;box-shadow:var(--shadow-sm);transition:.18s}.button:hover{border-color:#bfdbfe;background:#f8fbff}.button.primary{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;border-color:#2563eb}
+    .select{min-width:136px}
+    .workspace{display:grid;grid-template-columns:minmax(340px,440px) 1fr;gap:16px;padding:16px 18px;overflow:hidden;flex:1}
+    .panel{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);min-height:0;display:flex;flex-direction:column}
+    .panel-head{padding:16px 16px 10px;border-bottom:1px solid rgba(219,227,239,.8)}
+    .panel-head h2{margin:0;font-size:17px;letter-spacing:-.02em}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+    .panel-body{padding:14px 16px;overflow:auto;display:flex;flex-direction:column;gap:12px;min-height:0}
+    .stack{display:flex;flex-direction:column;gap:6px}.row{display:flex;gap:8px;flex-wrap:wrap}.label{font-size:13px;font-weight:600;color:var(--text)}.helper{font-size:12px;color:var(--muted);line-height:1.4}
+    .seg{display:inline-flex;background:#eef4fb;border:1px solid #d9e5f5;border-radius:11px;padding:3px;gap:3px}.seg button{padding:6px 10px;background:transparent;border:none;cursor:pointer;color:var(--muted);box-shadow:none}.seg button.active{background:#fff;color:var(--accent);box-shadow:var(--shadow-sm)}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{cursor:pointer;background:#f8fafc;color:var(--muted)}.tab.active{background:var(--accent-soft);color:var(--accent);border-color:#bfdbfe}
+    textarea,input{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;font:inherit;color:var(--text);outline:none;box-shadow:inset 0 1px 1px rgba(15,23,42,.03)}
+    textarea:focus,input:focus,.select:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+    textarea{resize:vertical;min-height:108px;line-height:1.5}.composer{min-height:96px}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mini{border:1px solid var(--line);border-radius:14px;background:var(--panel-soft);padding:12px}.mini h3{margin:0 0 4px;font-size:13px}.mini p{margin:0;font-size:12px;color:var(--muted);line-height:1.4}
+    .badges{display:flex;gap:6px;flex-wrap:wrap}.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;border:1px solid var(--line);font-size:12px;background:#fff;color:var(--muted)}
+    .status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.status-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px}.status-card strong{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.status-card span{font-size:20px;font-weight:700}
+    .answer{white-space:pre-wrap;line-height:1.55;font-size:14px}.contexts,.stages{display:flex;flex-direction:column;gap:8px}.context{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px}.context-header{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px}.context-title{font-size:13px;font-weight:600}.context-meta{font-size:12px;color:var(--muted)}
+    details{border:1px solid var(--line);border-radius:14px;background:#fff;padding:8px 10px} details summary{cursor:pointer;font-weight:600;font-size:13px;list-style:none} details summary::-webkit-details-marker{display:none}
+    .stage-result{border-top:1px solid #edf2f7;margin-top:8px;padding-top:8px;display:flex;flex-direction:column;gap:8px}.stage-item{border:1px solid #edf2f7;border-radius:10px;padding:9px;background:#f8fafc}.stage-item strong{font-size:12px}
+    .toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.hidden{display:none!important}
+    .footerbar{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:12px}.muted{color:var(--muted);font-size:12px}
+    @media (max-width:1100px){.workspace{grid-template-columns:1fr}.status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cards{grid-template-columns:1fr}}
+    @media (max-width:760px){.app{grid-template-columns:1fr}.sidebar{display:none}.topbar{padding:14px}.workspace{padding:14px}.status-grid{grid-template-columns:1fr}.title strong{font-size:19px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">t</div>
+      <div class="nav">
+        <button class="navbtn active" type="button" title="질문하기">✦</button>
+        <button class="navbtn" type="button" title="검색 보기">⌕</button>
+        <button class="navbtn" type="button" title="내보내기">⇩</button>
+      </div>
+      <button class="navbtn" id="clearBtn" type="button" title="초기화">↺</button>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="title">
+          <strong>Terrarium</strong>
+          <span>질문, 검색 근거, 파이프라인 추적을 한 화면에서 확인합니다.</span>
+        </div>
+        <div class="top-actions">
+          <div class="seg" id="appModeSeg">
+            <button type="button" class="active" data-app-view="assistant">질문하기</button>
+            <button type="button" data-app-view="debug">검색 보기</button>
+          </div>
+          <select class="select" id="modeSelect" title="실행 방식">
+            <option value="chat">일반 대화</option>
+            <option value="corpus">RAG</option>
+          </select>
+          <select class="select" id="profileSelect" title="검색 프로파일">
+            <option value="fast">빠른 응답</option>
+            <option value="default" selected>기본</option>
+            <option value="quality">정밀 검색</option>
+          </select>
+          <select class="select" id="sourceSelect" title="검색 소스">
+            <option value="">전체</option>
+            <option value="law">법령</option>
+            <option value="zuzu">ZUZU</option>
+          </select>
+          <select class="select" id="modelSelect" title="LLM 모델"></select>
+          <button class="button" id="copyBtn" type="button">답변 복사</button>
+          <button class="button" id="exportBtn" type="button">JSON 내보내기</button>
+        </div>
+      </header>
+      <section class="workspace">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>질문 입력</h2>
+            <p>일반 답변용 흐름과 검색 디버깅 흐름을 같은 입력에서 재사용합니다.</p>
+          </div>
+          <div class="panel-body">
+            <div class="stack">
+              <div class="label">질문</div>
+              <textarea id="input" class="composer" placeholder="예: 대한민국 헌법 제1조는 뭐야?"></textarea>
+              <div class="helper">RAG를 고르면 검색 근거와 파이프라인 추적이 함께 나옵니다.</div>
+            </div>
+            <div class="cards">
+              <div class="mini">
+                <h3>빠른 응답</h3>
+                <p>리랭크와 법령 확장을 줄여 초기 응답 시간을 우선합니다.</p>
+              </div>
+              <div class="mini">
+                <h3>정밀 검색</h3>
+                <p>더 큰 후보 집합과 확장을 사용해 품질을 우선합니다.</p>
+              </div>
+            </div>
+            <div class="footerbar">
+              <span class="muted" id="statusText">준비됨</span>
+              <button class="button primary" id="sendBtn" type="button">실행</button>
+            </div>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel-head">
+            <div class="toolbar">
+              <div>
+                <h2 id="resultTitle">답변과 검색 결과</h2>
+                <p id="resultDesc">최종 답변, 선택 근거, 단계별 추적을 함께 보여줍니다.</p>
+              </div>
+              <div class="badges" id="metaBadges"></div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="status-grid">
+              <div class="status-card"><strong>검색 지연</strong><span id="latencyValue">—</span></div>
+              <div class="status-card"><strong>선택 근거</strong><span id="contextCountValue">0</span></div>
+              <div class="status-card"><strong>파이프라인 단계</strong><span id="stageCountValue">0</span></div>
+              <div class="status-card"><strong>실행 모드</strong><span id="modeValue">chat</span></div>
+            </div>
+            <div id="assistantView">
+              <div class="stack">
+                <div class="label">최종 답변</div>
+                <div class="context answer" id="answerBox">질문을 입력하면 여기에 답변이 나옵니다.</div>
+              </div>
+              <div class="stack" id="contextsSection">
+                <div class="label">선택된 근거</div>
+                <div class="contexts" id="contextsList"></div>
+              </div>
+              <details>
+                <summary>검색은 이렇게 해석하면 됩니다</summary>
+                <div class="stage-result">
+                  <div class="helper">빠른 응답: 속도 우선. 기본: 균형형. 정밀 검색: 후보를 더 넓게 보고 리랭크/확장을 적극 사용합니다.</div>
+                </div>
+              </details>
+            </div>
+            <div id="debugView" class="hidden">
+              <div class="stack">
+                <div class="label">검색 디버그</div>
+                <div class="helper">vector, BM25, RRF, rerank, law expansion, context selection 단계를 순서대로 확인합니다.</div>
+              </div>
+              <div class="stages" id="stagesList"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script>
+    const API_QUERY = '/api/query';
+    const API_MODELS = '/api/models';
+    const PROFILE_LABELS = { fast: '빠른 응답', default: '기본', quality: '정밀 검색' };
+    const state = { last: null, lastAnswer: '' };
+    const $ = (id) => document.getElementById(id);
+    const elements = {
+      input: $('input'), send: $('sendBtn'), mode: $('modeSelect'), profile: $('profileSelect'), source: $('sourceSelect'), model: $('modelSelect'),
+      status: $('statusText'), answer: $('answerBox'), badges: $('metaBadges'), contexts: $('contextsList'), stages: $('stagesList'),
+      latency: $('latencyValue'), contextCount: $('contextCountValue'), stageCount: $('stageCountValue'), modeValue: $('modeValue'),
+      assistantView: $('assistantView'), debugView: $('debugView'), resultTitle: $('resultTitle'), resultDesc: $('resultDesc')
+    };
+
+    function escapeHtml(str){ return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function setStatus(text){ elements.status.textContent = text; }
+    function badge(text){ const el = document.createElement('span'); el.className = 'badge'; el.textContent = text; return el; }
+    function getActiveView(){ return document.querySelector('#appModeSeg button.active')?.dataset.appView || 'assistant'; }
+    function updateView(){
+      const view = getActiveView();
+      elements.assistantView.classList.toggle('hidden', view !== 'assistant');
+      elements.debugView.classList.toggle('hidden', view !== 'debug');
+      elements.resultTitle.textContent = view === 'assistant' ? '답변과 검색 결과' : '검색 단계 디버그';
+      elements.resultDesc.textContent = view === 'assistant' ? '최종 답변, 선택 근거, 단계별 추적을 함께 보여줍니다.' : '각 검색 단계를 펼쳐서 점수와 원문을 직접 비교할 수 있습니다.';
+    }
+    function updateModeVisibility(){
+      const isRag = elements.mode.value === 'corpus';
+      elements.profile.disabled = !isRag;
+      elements.source.disabled = !isRag;
+    }
+    async function loadModels(){
+      try{
+        const res = await fetch(API_MODELS); const data = await res.json();
+        elements.model.innerHTML = '';
+        (data.models || []).forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m.id; opt.textContent = `${m.name} (${m.provider})`;
+          if (data.default === m.id) opt.selected = true;
+          elements.model.appendChild(opt);
+        });
+      }catch(e){ elements.model.innerHTML = '<option value="">기본 모델</option>'; }
+    }
+    function renderContexts(contexts){
+      elements.contexts.innerHTML = '';
+      if (!Array.isArray(contexts) || contexts.length === 0){
+        const empty = document.createElement('div'); empty.className = 'helper'; empty.textContent = '선택된 근거가 없습니다.'; elements.contexts.appendChild(empty); return;
+      }
+      contexts.forEach((ctx, idx) => {
+        const card = document.createElement('div'); card.className = 'context';
+        const title = ctx.meta?.article_title ? `제${ctx.meta.article_number || '?'}조 (${ctx.meta.article_title})` : (ctx.meta?.section_title || ctx.document_id || `문서 ${idx+1}`);
+        card.innerHTML = `<div class="context-header"><div class="context-title">${escapeHtml(title)}</div><div class="context-meta">score ${Number(ctx.score || 0).toFixed(3)}</div></div><div class="answer">${escapeHtml(ctx.text || '')}</div>`;
+        elements.contexts.appendChild(card);
+      });
+    }
+    function renderStages(stages){
+      elements.stages.innerHTML = '';
+      if (!Array.isArray(stages) || stages.length === 0){
+        const empty = document.createElement('div'); empty.className = 'helper'; empty.textContent = '표시할 검색 단계가 없습니다.'; elements.stages.appendChild(empty); return;
+      }
+      stages.forEach(stage => {
+        const wrap = document.createElement('details');
+        wrap.open = stage.name === 'Context Selection';
+        const summary = document.createElement('summary');
+        summary.textContent = `${stage.name} · ${stage.count || 0}건 · ${stage.latency_ms || 0}ms`;
+        wrap.appendChild(summary);
+        const body = document.createElement('div'); body.className = 'stage-result';
+        if (stage.description){ const desc = document.createElement('div'); desc.className = 'helper'; desc.textContent = stage.description; body.appendChild(desc); }
+        (stage.results || []).forEach((item, idx) => {
+          const row = document.createElement('div'); row.className = 'stage-item';
+          const meta = item.metadata || {};
+          const title = meta.article_title ? `제${meta.article_number || '?'}조 (${meta.article_title})` : (meta.section_title || item.id || `결과 ${idx+1}`);
+          row.innerHTML = `<strong>#${idx+1} ${escapeHtml(title)}</strong><div class="helper">${escapeHtml(item.score_label || 'score')}: ${typeof item.score === 'number' ? item.score.toFixed(4) : escapeHtml(item.score || '')}</div><div class="answer">${escapeHtml(item.content || '')}</div>`;
+          body.appendChild(row);
+        });
+        wrap.appendChild(body);
+        elements.stages.appendChild(wrap);
+      });
+    }
+    function renderResult(data){
+      state.last = data; state.lastAnswer = String(data?.answer || '');
+      const contexts = Array.isArray(data?.contexts) ? data.contexts : [];
+      const stages = Array.isArray(data?.pipeline_stages) ? data.pipeline_stages : [];
+      const retrieval = data?.meta?.retrieval || {};
+      elements.answer.textContent = state.lastAnswer || '응답이 없습니다.';
+      elements.badges.innerHTML = '';
+      elements.badges.appendChild(badge(`모드 ${data?.meta?.mode || elements.mode.value}`));
+      if (data?.meta?.profile) elements.badges.appendChild(badge(PROFILE_LABELS[data.meta.profile] || data.meta.profile));
+      if (elements.mode.value === 'corpus') elements.badges.appendChild(badge((elements.source.value || '전체') + ' 검색'));
+      if (data?.llm_trace?.model) elements.badges.appendChild(badge(data.llm_trace.model));
+      elements.latency.textContent = retrieval.latency_ms ? `${retrieval.latency_ms}ms` : '—';
+      elements.contextCount.textContent = String(contexts.length);
+      elements.stageCount.textContent = String(stages.length);
+      elements.modeValue.textContent = data?.meta?.mode || elements.mode.value;
+      renderContexts(contexts);
+      renderStages(stages);
+    }
+    async function run(){
+      const query = elements.input.value.trim();
+      if (!query) return;
+      setStatus('실행 중...'); elements.send.disabled = true;
+      try{
+        const res = await fetch(API_QUERY, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            query,
+            model: elements.model.value || undefined,
+            mode: elements.mode.value,
+            source: elements.mode.value === 'corpus' ? (elements.source.value || undefined) : undefined,
+            profile: elements.mode.value === 'corpus' ? elements.profile.value : 'default',
+            raw_text: '',
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.detail?.message || `HTTP ${res.status}`);
+        renderResult(data);
+        setStatus('완료');
+      }catch(err){
+        renderResult({ answer: `에러: ${err.message}`, contexts: [], pipeline_stages: [], meta: { mode: elements.mode.value, profile: elements.profile.value, retrieval: {} } });
+        setStatus('오류');
+      }finally{ elements.send.disabled = false; }
+    }
+    document.querySelectorAll('#appModeSeg button').forEach(btn => btn.addEventListener('click', () => { document.querySelectorAll('#appModeSeg button').forEach(b => b.classList.remove('active')); btn.classList.add('active'); updateView(); }));
+    elements.mode.addEventListener('change', updateModeVisibility);
+    elements.send.addEventListener('click', run);
+    elements.input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing){ e.preventDefault(); run(); } });
+    $('copyBtn').addEventListener('click', async () => { if (!state.lastAnswer) return; try { await navigator.clipboard.writeText(state.lastAnswer); setStatus('답변 복사됨'); } catch { setStatus('복사 실패'); } });
+    $('exportBtn').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(state.last || {}, null, 2)], { type:'application/json' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'terrarium-result.json'; a.click(); URL.revokeObjectURL(url);
+    });
+    $('clearBtn').addEventListener('click', () => { elements.input.value = ''; renderResult({ answer:'질문을 입력하면 여기에 답변이 나옵니다.', contexts: [], pipeline_stages: [], meta:{ mode: elements.mode.value, profile: elements.profile.value, retrieval:{} } }); setStatus('초기화됨'); });
+    loadModels(); updateView(); updateModeVisibility(); renderResult({ answer:'질문을 입력하면 여기에 답변이 나옵니다.', contexts: [], pipeline_stages: [], meta:{ mode: elements.mode.value, profile: elements.profile.value, retrieval:{} } });
+  </script>
+</body>
+</html>
