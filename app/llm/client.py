@@ -9,44 +9,72 @@ import httpx
 from app.api.schemas.query import LLMTrace
 
 
-# 나중에 .env로 바꾸기 쉽게 환경변수로 빼두자
+# Ollama 설정
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:4b")
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "bge-m3")
 
+# 기본 모델 (환경변수 또는 Ollama 기본값)
+DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", OLLAMA_MODEL)
+OFFLINE_MODE = os.getenv("OFFLINE_MODE", "true").lower() == "true"
+
+# OpenAI 계열 모델 접두사 — 이 접두사로 시작하면 OpenAI API로 라우팅
+_OPENAI_PREFIXES = ("gpt-", "o1-", "o3-", "o4-")
+
+
+def is_openai_model(model: str) -> bool:
+    """모델명이 OpenAI 계열인지 판별."""
+    return model.startswith(_OPENAI_PREFIXES)
+
 
 async def call_llm(
-    prompt: str, 
-    chat_history: Optional[List[Dict[str, str]]] = None
+    prompt: str,
+    model: str | None = None,
+    chat_history: Optional[List[Dict[str, str]]] = None,
 ) -> Tuple[str, LLMTrace]:
     """
     Terrarium에서 LLM 한 번 호출할 때 쓰는 공용 함수.
+    모델명에 따라 OpenAI 또는 Ollama로 자동 라우팅.
+
+    - model: 사용할 모델명 (None이면 DEFAULT_MODEL 사용)
     - prompt: 우리가 구성한 프롬프트 (질문 + 컨텍스트)
     - chat_history: 이전 대화 히스토리 (선택사항, 멀티턴 대화용)
     - return: (LLM이 생성한 텍스트, LLMTrace)
     """
+    model = model or DEFAULT_MODEL
+
+    if is_openai_model(model):
+        if OFFLINE_MODE:
+            raise RuntimeError("OFFLINE_MODE에서는 OpenAI 모델을 사용할 수 없습니다.")
+        from app.llm.openai_client import call_openai
+        return await call_openai(prompt, model=model, chat_history=chat_history)
+
+    # Ollama 호출
+    return await _call_ollama(prompt, model=model, chat_history=chat_history)
+
+
+async def _call_ollama(
+    prompt: str,
+    model: str,
+    chat_history: Optional[List[Dict[str, str]]] = None,
+) -> Tuple[str, LLMTrace]:
+    """Ollama 호출 (기존 로직)."""
     url = f"{OLLAMA_HOST}/api/chat"
 
-    # 대화 히스토리 구성
     messages = []
     if chat_history:
-        # 이전 대화를 messages에 추가
         messages.extend(chat_history)
-    
-    # 현재 프롬프트를 user 메시지로 추가
     messages.append({"role": "user", "content": prompt})
 
     payload = {
-        "model": OLLAMA_MODEL,
+        "model": model,
         "messages": messages,
-        "stream": False,  # 일단 스트리밍은 끔
+        "stream": False,
     }
 
     start = time.perf_counter()
 
-    # LLM 응답이 오래 걸릴 수 있으므로 타임아웃을 길게 설정 (5분)
     timeout = httpx.Timeout(300.0, connect=10.0)
-    
     async with httpx.AsyncClient(timeout=timeout) as client:
         resp = await client.post(url, json=payload)
         resp.raise_for_status()
@@ -57,20 +85,18 @@ async def call_llm(
 
     elapsed_ms = int((time.perf_counter() - start) * 1000)
 
-    # Ollama 응답 포맷에서 message.content 꺼내기
     message = data.get("message", {})
     if isinstance(message, dict):
         output_text = str(message.get("content", ""))
     else:
-        # 비정상 응답 포맷도 안전하게 처리해 파이프라인이 깨지지 않도록 한다.
         output_text = str(data.get("response", ""))
 
     trace = LLMTrace(
-        model=OLLAMA_MODEL,
+        model=model,
         prompt=prompt,
         output=output_text,
         latency_ms=elapsed_ms,
-        input_tokens=None,   # Ollama가 토큰 정보를 안 주니까 일단 None
+        input_tokens=None,
         output_tokens=None,
     )
 

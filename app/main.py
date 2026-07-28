@@ -1,11 +1,15 @@
 """
 Terrarium - RAG 엔진 FastAPI 애플리케이션
 """
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.api import health
-from app.api.routes import query, index
+from app.api.routes import query, index, search
+
+_DEFAULT_CORS_ORIGINS = os.getenv("TERRARIUM_CORS_ORIGINS", "*")
 
 app = FastAPI(
     title="Terrarium RAG Engine",
@@ -16,7 +20,7 @@ app = FastAPI(
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 개발 환경용, 프로덕션에서는 특정 도메인만 허용
+    allow_origins=[origin.strip() for origin in _DEFAULT_CORS_ORIGINS.split(",") if origin.strip()] or ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -26,6 +30,7 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(query.router, prefix="/api")
 app.include_router(index.router, prefix="/api")
+app.include_router(search.router, prefix="/api")
 
 # Static 파일 서빙 (HTML 등)
 import os
@@ -41,4 +46,3 @@ async def root():
         "version": "0.1.0",
         "status": "running"
     }
-

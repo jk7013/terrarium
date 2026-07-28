@@ -34,9 +34,9 @@ class QueryRequest(BaseModel):
     v0에서는 mode=ephemeral + raw_text 기반 1회성 RAG만 사용한다.
     """
 
-    mode: Literal["ephemeral", "corpus"] = Field(
-        default="ephemeral",
-        description="RAG 모드 (v0는 ephemeral만 지원)",
+    mode: Literal["chat", "ephemeral", "corpus"] = Field(
+        default="chat",
+        description="chat: LLM 직접 대화 / corpus: pgvector RAG / ephemeral: raw_text 기반 1회성 RAG",
     )
     query: str = Field(
         description="사용자 질문 텍스트",
@@ -44,6 +44,14 @@ class QueryRequest(BaseModel):
     raw_text: Optional[str] = Field(
         default=None,
         description="ephemeral 모드에서 사용할 원문 텍스트 (파일 파싱 전 단계)",
+    )
+    model: Optional[str] = Field(
+        default=None,
+        description="사용할 LLM 모델명 (예: gpt-4o-mini, o4-mini, qwen3:4b). None이면 서버 기본값.",
+    )
+    source: Optional[str] = Field(
+        default=None,
+        description="검색 소스 필터: law | zuzu | None(전체, regulation 제외)",
     )
     profile: str = Field(
         default="default",
@@ -115,3 +123,23 @@ class QueryResponse(BaseModel):
     retrieval_trace: RetrievalTrace
     llm_trace: LLMTrace
     meta: QueryMeta
+    pipeline_stages: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="RAG 파이프라인 단계별 트레이스 (vector, bm25, rrf, rerank, law_expansion, context_selection, llm)",
+    )
+
+
+class RetrieveRequest(BaseModel):
+    query: str = Field(description="검색할 사용자 질문")
+    source: Optional[str] = Field(default=None, description="검색 소스 필터: law | zuzu | None")
+    profile: str = Field(default="default", description="RAG 프로파일 이름")
+    options: QueryOptions = Field(default_factory=QueryOptions, description="검색/컨텍스트 선택 옵션")
+
+
+class RetrieveResponse(BaseModel):
+    trace_id: str
+    query: str
+    contexts: List[ContextItem]
+    retrieval_trace: RetrievalTrace
+    meta: QueryMeta
+    pipeline_stages: List[Dict[str, Any]] = Field(default_factory=list)
