@@ -92,3 +92,17 @@ Current internal profile access still uses `X-Jido-Internal`. This should be ren
 - Rotate any OpenAI key that was previously visible through Docker container env inspection.
 - Bind local development API and DB ports to `127.0.0.1`, not `0.0.0.0`.
 - Keep law-specific retrieval as a domain path, not as the identity of the whole service.
+
+## MDN HTTP Pilot Corpus
+
+The optional Korean HTTP pilot corpus is built from
+[MDN Web Docs translated-content](https://github.com/mdn/translated-content).
+Every generated record retains its canonical `https://developer.mozilla.org/ko/docs/...`
+URL in `filepath`. The conversion removes the leading YAML frontmatter and MDN
+macros; the remaining Markdown, including tables, lists, and code blocks, is kept
+as a modified corpus.
+
+MDN prose is available under CC BY-SA 2.5. Code examples may be available under
+CC0 or the legacy MIT terms depending on when they were added. See the
+[official translated-content license](https://github.com/mdn/translated-content/blob/main/LICENSE.md)
+for the applicable attribution and reuse terms.

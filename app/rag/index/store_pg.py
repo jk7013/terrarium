@@ -11,6 +11,7 @@ async def index_records_to_pg(
     records: list[dict[str, Any]],
     *,
     rebuild: bool,
+    tags: list[str] | None = None,
 ) -> tuple[int, int]:
     store = PgVectorStore()
     if rebuild:
@@ -34,7 +35,7 @@ async def index_records_to_pg(
         for chunk, vec in zip(chunks, vectors):
             chunk["embedding"] = vec
             chunk["keywords"] = extract_keywords(chunk["text"], limit=10)
-            chunk["tags"] = []
+            chunk["tags"] = list(tags or [])
             chunk["ngram"] = None
         await asyncio.to_thread(store.upsert_chunks, doc_id=row["doc_id"], chunks=chunks)
         doc_ids.add(row["doc_id"])

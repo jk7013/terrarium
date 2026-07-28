@@ -28,6 +28,7 @@ async def index_documents(request: IndexRequest) -> IndexResponse:
         indexed_docs, indexed_chunks = await index_records_to_pg(
             records,
             rebuild=request.rebuild,
+            tags=request.tags,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"인덱싱 실행 실패: {str(e)}") from e
