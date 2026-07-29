@@ -113,6 +113,48 @@ Terrarium should not depend on Jido database tables or Jido workflow internals.
 
 Current internal profile access still uses `X-Jido-Internal`. This should be renamed later to a client-neutral internal header, such as `X-Internal-Client`, after Jido is updated at the same time.
 
+## Retrieval Baseline
+
+The retrieval baseline is a saved reference for detecting search regressions. It
+uses the 25 approved questions from the MDN HTTP pilot dataset and three fixed
+law queries. Each query runs with the `fast`, `default`, and `quality` profiles.
+
+Capture the current result IDs, scores, latency, failures, and source-isolation
+status:
+
+```bash
+make retrieval-baseline
+```
+
+After changing retrieval code, compare the live API with the saved baseline:
+
+```bash
+make retrieval-check
+```
+
+The check fails when top result IDs or scores change, a request fails or times
+out, a result comes from the wrong source, or latency exceeds the recorded value
+by more than the configured allowance. Snapshot files contain query text,
+chunk IDs, scores, tags, and timing only; document bodies are never stored.
+Both commands save after every search. If a run is interrupted, continue from
+the checkpoint instead of restarting:
+
+```bash
+make retrieval-baseline-resume
+make retrieval-check-resume
+```
+
+Use the regular commands for a fresh measurement. The `-resume` commands are
+only for continuing an interrupted run, because they intentionally reuse
+already saved searches.
+
+The commands expect Terrarium at `http://127.0.0.1:9000`. Advanced options,
+including a different URL or timeout, are available through:
+
+```bash
+python scripts/retrieval_baseline.py --help
+```
+
 ## Safety Notes
 
 - Do not commit `.env`.
