@@ -18,6 +18,7 @@ COPY requirements-dev.txt /app/requirements-dev.txt
 RUN pip install --no-cache-dir -r /app/requirements-dev.txt
 
 COPY app /app/app
+COPY benchmarks /app/benchmarks
 COPY tests /app/tests
 COPY scripts /app/scripts
 COPY pytest.ini /app/pytest.ini

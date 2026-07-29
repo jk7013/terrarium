@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "query_set_id": "terrarium-retrieval-v1",
+  "description": "승인된 MDN HTTP 평가 질문 25개와 고정 법령 질문 3개",
+  "profiles": [
+    "fast",
+    "default",
+    "quality"
+  ],
+  "request": {
+    "top_k": 5,
+    "final_contexts": 5
+  },
+  "provenance": {
+    "mdn_dataset_id": "5dd88c55-874e-4238-9179-11051b14152a",
+    "mdn_dataset_name": "mdn_http_pilot_20260729",
+    "mdn_item_status": "approved",
+    "mdn_exported_at": "2026-07-29",
+    "law_query_policy": "법령명과 조문 번호가 분명하고 장기간 반복 비교하기 쉬운 질문"
+  },
+  "cases": [
+    {
+      "case_id": "mdn-001",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "3d82cfe0-ec49-4fb7-a684-97bcce9ce585",
+      "query": "HTTP 메시지의 구조와 HTTP/1.1과 HTTP/2 간의 차이점은 어떤 것이 있나요?"
+    },
+    {
+      "case_id": "mdn-002",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "abb99ef9-8f68-4991-b757-37aa3ddf1826",
+      "query": "HTTP 응답 메시지 구성 요소 중 상태 코드와 상태 메시지의 차이는 무엇인가요?"
+    },
+    {
+      "case_id": "mdn-003",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "2c5eb1cf-67eb-4f82-ac8b-bfe9f5f6ce7b",
+      "query": "HTTP 리다이렉트를 설정할 때, 어떤 파라미터를 추가해야 영구적인 리다이렉트를 설정할 수 있나요?"
+    },
+    {
+      "case_id": "mdn-004",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "6cc7c9b3-c033-4162-bc57-634cf0ed5025",
+      "query": "CORS 요청을 하면서 브라우저에서 오류가 발생했을 때, 어떤 정보를 확인해야 할까요?"
+    },
+    {
+      "case_id": "mdn-005",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "53b78865-077b-4cb5-81fc-a13dde1456a9",
+      "query": "Cache-Control: max-age=N이 설정된 경우 캐시 유효 수명은 어떻게 계산되나요?"
+    },
+    {
+      "case_id": "mdn-006",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "8b08db50-8ab7-4bf1-9972-701c5bd9acfa",
+      "query": "HTTP 메시지가 프록시를 통해 전달될 때 어떤 영향을 받을 수 있나요?"
+    },
+    {
+      "case_id": "mdn-007",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "8d71c414-b3ba-4149-a85b-20febd64d23d",
+      "query": "HTTP 메시지에서 '요청 헤드'와 '본문'은 각각 어떤 내용을 포함하고 있나요?"
+    },
+    {
+      "case_id": "mdn-008",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "93ede74e-8c96-4ed7-a330-2eace5594f21",
+      "query": "GET 요청이 성공했을 때 응답 메시지 본문에는 무엇이 담기나요?"
+    },
+    {
+      "case_id": "mdn-009",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "08e792cd-95c3-4028-9c72-d4ed291e9416",
+      "query": "HTTP 메서드 중 어떤 메서드가 리소스를 삭제하는 데 사용되나요?"
+    },
+    {
+      "case_id": "mdn-010",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "bb6f4960-a132-41c8-8ed7-7a2951b909f1",
+      "query": "HTTP 세션을 관리하는 데 쿠키의 역할은 어떤 것인가요?"
+    },
+    {
+      "case_id": "mdn-011",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "1b5bea1e-0240-4603-bff1-822e7b3b66f6",
+      "query": "HTTP 요청 메서드는 무엇을 나타내며, 다른 이름으로 무엇이라고도 부르나요?"
+    },
+    {
+      "case_id": "mdn-012",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "b2f47a52-6017-4719-b60c-829fd23eeed9",
+      "query": "HTTP 요청 메서드의 정의와 그 사용 사례는 구체적으로 어떤 것들이 있나요?"
+    },
+    {
+      "case_id": "mdn-013",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "2f90fb51-a431-43d4-a77e-51d61ac5e755",
+      "query": "HTTP 응답 상태 코드는 무엇을 알려주나요?"
+    },
+    {
+      "case_id": "mdn-014",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "76a8894f-28e4-48c0-af00-33fb0bb4f41b",
+      "query": "HTTP 캐싱을 통해 성능이 어떻게 향상될 수 있는지 구체적으로 설명해 주시겠어요?"
+    },
+    {
+      "case_id": "mdn-015",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "2986e63f-e0e2-413d-a2c1-1054570d7137",
+      "query": "브라우저는 교차 출처 HTTP 요청의 위험을 완화하기 위해 어떤 API에서 CORS를 사용하나요?"
+    },
+    {
+      "case_id": "mdn-016",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "d3f9da16-4c62-4165-a2ec-ebf0aded977f",
+      "query": "사전 요청 헤더는 서버에 무엇을 알리기 위해 사용되나요?"
+    },
+    {
+      "case_id": "mdn-017",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "ec94e4d9-1cbf-448a-b898-ddd767844cbb",
+      "query": "이 문서가 서버 접근 제한 예시로 사용하는 HTTP 인증 스키마는 무엇인가요?"
+    },
+    {
+      "case_id": "mdn-018",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "8ded8357-7fef-4b89-a750-f503c05ecbcd",
+      "query": "HTTP 응답의 시작 부분은 어떤 요소들로 구성되나요?"
+    },
+    {
+      "case_id": "mdn-019",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "b4fa0121-73de-4222-bb43-e503c1e19481",
+      "query": "HTTP 콘텐츠 협상이란 무엇이며, 사용자 에이전트는 무엇을 명시할 수 있나요?"
+    },
+    {
+      "case_id": "mdn-020",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "0cb682c0-b65d-4928-a8a6-af3d09dc98f7",
+      "query": "HTTP 헤더는 어떤 용도로 사용되며 기본 구조는 어떻게 구성되나요?"
+    },
+    {
+      "case_id": "mdn-021",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "17a7f99d-91dd-48ff-8643-15044c282769",
+      "query": "서버 주도 콘텐츠 협상의 두 가지 확장성 문제는 무엇인가요?"
+    },
+    {
+      "case_id": "mdn-022",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "baaa8c34-6097-4cdf-908d-78bfd6ff0d35",
+      "query": "서버는 실제 CORS 요청에서 사용할 수 있는 헤더를 어떻게 알려주나요?"
+    },
+    {
+      "case_id": "mdn-023",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "3e56480b-6153-4d93-98fe-0abe8a1ca8d4",
+      "query": "쿠키는 세션 관리에서 동일한 브라우저의 요청을 어떻게 활용하나요?"
+    },
+    {
+      "case_id": "mdn-024",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "65b8ebda-9aaf-4a4e-9364-8c7201694045",
+      "query": "쿠키를 이용한 세션 관리로 어떤 정보를 관리할 수 있나요?"
+    },
+    {
+      "case_id": "mdn-025",
+      "group": "mdn_http",
+      "source": "mdn_http",
+      "origin_id": "0b762067-f025-4e7f-a5b2-723db2dc9b13",
+      "query": "HTTP 응답 상태 코드는 몇 개의 계층으로 그룹화되며 각 계층은 무엇인가요?"
+    },
+    {
+      "case_id": "law-constitution-article-1",
+      "group": "law",
+      "source": "law",
+      "query": "대한민국헌법 제1조"
+    },
+    {
+      "case_id": "law-privacy-article-15",
+      "group": "law",
+      "source": "law",
+      "query": "개인정보 보호법 제15조"
+    },
+    {
+      "case_id": "law-labor-article-60",
+      "group": "law",
+      "source": "law",
+      "query": "근로기준법 제60조"
+    }
+  ]
+}

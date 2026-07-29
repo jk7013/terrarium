@@ -1,0 +1,4589 @@
+{
+  "schema_version": 1,
+  "query_set_id": "terrarium-retrieval-v1",
+  "query_spec_sha256": "2302aa45a1e4701999e5a36f2747ad9ba8090f6e49052e8f95763801ce062caa",
+  "created_at": "2026-07-29T02:19:41.503582Z",
+  "updated_at": "2026-07-29T04:09:22.652161Z",
+  "base_url": "http://127.0.0.1:9000",
+  "request": {
+    "endpoint": "/api/retrieve",
+    "top_k": 5,
+    "final_contexts": 5,
+    "timeout_seconds": 120.0
+  },
+  "profiles": [
+    "fast",
+    "default",
+    "quality"
+  ],
+  "query_count": 28,
+  "summary": {
+    "total_runs": 84,
+    "statuses": {
+      "success": 84
+    },
+    "failed_runs": 0,
+    "mixed_source_runs": 0,
+    "latency_ms_by_profile": {
+      "default": {
+        "count": 28,
+        "min": 3472,
+        "median": 7545,
+        "p95": 34808,
+        "max": 39181
+      },
+      "fast": {
+        "count": 28,
+        "min": 175,
+        "median": 199,
+        "p95": 3790,
+        "max": 3938
+      },
+      "quality": {
+        "count": 28,
+        "min": 8310,
+        "median": 16861,
+        "p95": 52445,
+        "max": 61642
+      }
+    }
+  },
+  "runs": [
+    {
+      "case_id": "mdn-001",
+      "group": "mdn_http",
+      "query": "HTTP 메시지의 구조와 HTTP/1.1과 HTTP/2 간의 차이점은 어떤 것이 있나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 325,
+      "server_latency_ms": 281,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:51",
+          "score": 0.031099324976,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:52",
+          "score": 0.030309988519,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:1",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:38",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-001",
+      "group": "mdn_http",
+      "query": "HTTP 메시지의 구조와 HTTP/1.1과 HTTP/2 간의 차이점은 어떤 것이 있나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 6150,
+      "server_latency_ms": 6145,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:51",
+          "score": 0.999157786369,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:1",
+          "score": 0.99734133482,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:66",
+          "score": 0.994407296181,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:45",
+          "score": 0.940890371799,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:31",
+          "score": 0.919581353664,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-001",
+      "group": "mdn_http",
+      "query": "HTTP 메시지의 구조와 HTTP/1.1과 HTTP/2 간의 차이점은 어떤 것이 있나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 8430,
+      "server_latency_ms": 8424,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:51",
+          "score": 0.999157786369,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:1",
+          "score": 0.99734133482,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:66",
+          "score": 0.994407296181,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:45",
+          "score": 0.940890371799,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:31",
+          "score": 0.919581472874,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-002",
+      "group": "mdn_http",
+      "query": "HTTP 응답 메시지 구성 요소 중 상태 코드와 상태 메시지의 차이는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 196,
+      "server_latency_ms": 191,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.032266458496,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:60",
+          "score": 0.032258064516,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-session:na:34",
+          "score": 0.032018442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.030798389007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:14",
+          "score": 0.015625,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-002",
+      "group": "mdn_http",
+      "query": "HTTP 응답 메시지 구성 요소 중 상태 코드와 상태 메시지의 차이는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 7446,
+      "server_latency_ms": 7440,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:60",
+          "score": 0.989422261715,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:27",
+          "score": 0.985469400883,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.977448642254,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.973633229733,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-status-codes:na:13",
+          "score": 0.881613850594,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-002",
+      "group": "mdn_http",
+      "query": "HTTP 응답 메시지 구성 요소 중 상태 코드와 상태 메시지의 차이는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 15835,
+      "server_latency_ms": 15823,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:60",
+          "score": 0.989422261715,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:27",
+          "score": 0.985469400883,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.977448642254,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.973633229733,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-status-codes:na:13",
+          "score": 0.881613492966,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-003",
+      "group": "mdn_http",
+      "query": "HTTP 리다이렉트를 설정할 때, 어떤 파라미터를 추가해야 영구적인 리다이렉트를 설정할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 194,
+      "server_latency_ms": 190,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-redirections:na:56",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-redirections:na:32",
+          "score": 0.032258064516,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-redirections:na:47",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:21",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-redirections:na:49",
+          "score": 0.015625,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-003",
+      "group": "mdn_http",
+      "query": "HTTP 리다이렉트를 설정할 때, 어떤 파라미터를 추가해야 영구적인 리다이렉트를 설정할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 7401,
+      "server_latency_ms": 7396,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-redirections:na:56",
+          "score": 0.989852130413,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-redirections:na:0",
+          "score": 0.54846483469,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-redirections:na:49",
+          "score": 0.281566858292,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-redirections:na:2",
+          "score": 0.20774282515,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-redirections:na:20",
+          "score": 0.196127906442,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-003",
+      "group": "mdn_http",
+      "query": "HTTP 리다이렉트를 설정할 때, 어떤 파라미터를 추가해야 영구적인 리다이렉트를 설정할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 12923,
+      "server_latency_ms": 12917,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-redirections:na:56",
+          "score": 0.989852130413,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-redirections:na:0",
+          "score": 0.548465490341,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-redirections:na:49",
+          "score": 0.281566858292,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-redirections:na:2",
+          "score": 0.207743093371,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-redirections:na:20",
+          "score": 0.196127906442,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-004",
+      "group": "mdn_http",
+      "query": "CORS 요청을 하면서 브라우저에서 오류가 발생했을 때, 어떤 정보를 확인해야 할까요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 238,
+      "server_latency_ms": 233,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:11",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:154",
+          "score": 0.03125,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:75",
+          "score": 0.030798389007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.029877369008,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:5",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-004",
+      "group": "mdn_http",
+      "query": "CORS 요청을 하면서 브라우저에서 오류가 발생했을 때, 어떤 정보를 확인해야 할까요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 10930,
+      "server_latency_ms": 10923,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:11",
+          "score": 0.969122409821,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:98",
+          "score": 0.920347034931,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.398155361414,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.308473050594,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:4",
+          "score": 0.161817744374,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-004",
+      "group": "mdn_http",
+      "query": "CORS 요청을 하면서 브라우저에서 오류가 발생했을 때, 어떤 정보를 확인해야 할까요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 18285,
+      "server_latency_ms": 18271,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:11",
+          "score": 0.969122409821,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:98",
+          "score": 0.920347034931,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.398155361414,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.308473050594,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:4",
+          "score": 0.161817744374,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-005",
+      "group": "mdn_http",
+      "query": "Cache-Control: max-age=N이 설정된 경우 캐시 유효 수명은 어떻게 계산되나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 198,
+      "server_latency_ms": 191,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-caching:na:40",
+          "score": 0.032522474881,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-caching:na:43",
+          "score": 0.032002048131,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-caching:na:29",
+          "score": 0.031099324976,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-caching:na:21",
+          "score": 0.029418126758,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:102",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-005",
+      "group": "mdn_http",
+      "query": "Cache-Control: max-age=N이 설정된 경우 캐시 유효 수명은 어떻게 계산되나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 9910,
+      "server_latency_ms": 9905,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-caching:na:40",
+          "score": 0.99983727932,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-caching:na:43",
+          "score": 0.905884563923,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-caching:na:29",
+          "score": 0.599961459637,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:58",
+          "score": 0.222990781069,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-caching:na:27",
+          "score": 0.184740439057,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-005",
+      "group": "mdn_http",
+      "query": "Cache-Control: max-age=N이 설정된 경우 캐시 유효 수명은 어떻게 계산되나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 14212,
+      "server_latency_ms": 14197,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-caching:na:40",
+          "score": 0.99983727932,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-caching:na:43",
+          "score": 0.905884563923,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-caching:na:29",
+          "score": 0.599961459637,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:58",
+          "score": 0.222990781069,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-caching:na:27",
+          "score": 0.184740439057,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-006",
+      "group": "mdn_http",
+      "query": "HTTP 메시지가 프록시를 통해 전달될 때 어떤 영향을 받을 수 있나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 244,
+      "server_latency_ms": 236,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:39",
+          "score": 0.032522474881,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:19",
+          "score": 0.030886196246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:1",
+          "score": 0.030798389007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:2",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-006",
+      "group": "mdn_http",
+      "query": "HTTP 메시지가 프록시를 통해 전달될 때 어떤 영향을 받을 수 있나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 13468,
+      "server_latency_ms": 13461,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:19",
+          "score": 0.903785705566,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:39",
+          "score": 0.456434845924,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:2",
+          "score": 0.430343389511,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-overview:na:6",
+          "score": 0.323523670435,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-status-codes:na:10",
+          "score": 0.152381673455,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-006",
+      "group": "mdn_http",
+      "query": "HTTP 메시지가 프록시를 통해 전달될 때 어떤 영향을 받을 수 있나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 21371,
+      "server_latency_ms": 21362,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:19",
+          "score": 0.903785705566,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:39",
+          "score": 0.456434845924,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:2",
+          "score": 0.430343389511,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-overview:na:6",
+          "score": 0.323523670435,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-status-codes:na:10",
+          "score": 0.152381688356,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-007",
+      "group": "mdn_http",
+      "query": "HTTP 메시지에서 '요청 헤드'와 '본문'은 각각 어떤 내용을 포함하고 있나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 202,
+      "server_latency_ms": 196,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.029631255487,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:135",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:14",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-status-codes:na:5",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-007",
+      "group": "mdn_http",
+      "query": "HTTP 메시지에서 '요청 헤드'와 '본문'은 각각 어떤 내용을 포함하고 있나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 5392,
+      "server_latency_ms": 5389,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.994097828865,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:21",
+          "score": 0.96435791254,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:60",
+          "score": 0.940599024296,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:16",
+          "score": 0.716599464417,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:56",
+          "score": 0.657655060291,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-007",
+      "group": "mdn_http",
+      "query": "HTTP 메시지에서 '요청 헤드'와 '본문'은 각각 어떤 내용을 포함하고 있나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 17189,
+      "server_latency_ms": 17180,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.994097828865,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:6",
+          "score": 0.980095148087,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:21",
+          "score": 0.96435791254,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-overview:na:60",
+          "score": 0.940599024296,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:16",
+          "score": 0.716599464417,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-008",
+      "group": "mdn_http",
+      "query": "GET 요청이 성공했을 때 응답 메시지 본문에는 무엇이 담기나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 215,
+      "server_latency_ms": 208,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-status-codes:na:5",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:93",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:53",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:59",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:129",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-008",
+      "group": "mdn_http",
+      "query": "GET 요청이 성공했을 때 응답 메시지 본문에는 무엇이 담기나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 10920,
+      "server_latency_ms": 10916,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:21",
+          "score": 0.817758619785,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-status-codes:na:5",
+          "score": 0.770873725414,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-status-codes:na:6",
+          "score": 0.265832722187,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.222878113389,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:125",
+          "score": 0.087250865996,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-008",
+      "group": "mdn_http",
+      "query": "GET 요청이 성공했을 때 응답 메시지 본문에는 무엇이 담기나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 21183,
+      "server_latency_ms": 21177,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:21",
+          "score": 0.817758619785,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:6",
+          "score": 0.788317203522,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-status-codes:na:5",
+          "score": 0.770873725414,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-session:na:36",
+          "score": 0.47755330801,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-status-codes:na:6",
+          "score": 0.265832722187,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-009",
+      "group": "mdn_http",
+      "query": "HTTP 메서드 중 어떤 메서드가 리소스를 삭제하는 데 사용되나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 197,
+      "server_latency_ms": 191,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-methods:na:1",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:19",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:56",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:56",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-caching:na:37",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-009",
+      "group": "mdn_http",
+      "query": "HTTP 메서드 중 어떤 메서드가 리소스를 삭제하는 데 사용되나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 15221,
+      "server_latency_ms": 15216,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-methods:na:1",
+          "score": 0.988797366619,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-status-codes:na:12",
+          "score": 0.90090572834,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-caching:na:37",
+          "score": 0.769868195057,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:13",
+          "score": 0.716671586037,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:56",
+          "score": 0.652295649052,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-009",
+      "group": "mdn_http",
+      "query": "HTTP 메서드 중 어떤 메서드가 리소스를 삭제하는 데 사용되나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 25572,
+      "server_latency_ms": 25566,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-methods:na:1",
+          "score": 0.988797366619,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-status-codes:na:12",
+          "score": 0.90090572834,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-caching:na:37",
+          "score": 0.769868195057,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:13",
+          "score": 0.716671586037,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:56",
+          "score": 0.652295649052,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-010",
+      "group": "mdn_http",
+      "query": "HTTP 세션을 관리하는 데 쿠키의 역할은 어떤 것인가요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 199,
+      "server_latency_ms": 195,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-overview:na:27",
+          "score": 0.030798389007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cookies:na:27",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:0",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-redirections:na:73",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-010",
+      "group": "mdn_http",
+      "query": "HTTP 세션을 관리하는 데 쿠키의 역할은 어떤 것인가요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 5046,
+      "server_latency_ms": 5042,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:0",
+          "score": 0.97978746891,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.968094408512,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:27",
+          "score": 0.946464836597,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:6",
+          "score": 0.78468555212,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cookies:na:42",
+          "score": 0.727522134781,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-010",
+      "group": "mdn_http",
+      "query": "HTTP 세션을 관리하는 데 쿠키의 역할은 어떤 것인가요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 12694,
+      "server_latency_ms": 12691,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:0",
+          "score": 0.97978746891,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.968094408512,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:27",
+          "score": 0.946464836597,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:6",
+          "score": 0.78468555212,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cookies:na:42",
+          "score": 0.727522134781,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-011",
+      "group": "mdn_http",
+      "query": "HTTP 요청 메서드는 무엇을 나타내며, 다른 이름으로 무엇이라고도 부르나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 257,
+      "server_latency_ms": 246,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-methods:na:0",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:20",
+          "score": 0.029850746269,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-session:na:19",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-methods:na:1",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:56",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-011",
+      "group": "mdn_http",
+      "query": "HTTP 요청 메서드는 무엇을 나타내며, 다른 이름으로 무엇이라고도 부르나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 13404,
+      "server_latency_ms": 13400,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-methods:na:0",
+          "score": 0.997619688511,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:19",
+          "score": 0.994921028614,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:12",
+          "score": 0.785266637802,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:0",
+          "score": 0.608918011189,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.57498729229,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-011",
+      "group": "mdn_http",
+      "query": "HTTP 요청 메서드는 무엇을 나타내며, 다른 이름으로 무엇이라고도 부르나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 19073,
+      "server_latency_ms": 19067,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-methods:na:0",
+          "score": 0.997619688511,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:19",
+          "score": 0.994921028614,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:12",
+          "score": 0.785266637802,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:0",
+          "score": 0.608918011189,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.574986755848,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-012",
+      "group": "mdn_http",
+      "query": "HTTP 요청 메서드의 정의와 그 사용 사례는 구체적으로 어떤 것들이 있나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 195,
+      "server_latency_ms": 190,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.028778467909,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:19",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-authentication:na:20",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-methods:na:0",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-headers:na:6",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-012",
+      "group": "mdn_http",
+      "query": "HTTP 요청 메서드의 정의와 그 사용 사례는 구체적으로 어떤 것들이 있나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 13746,
+      "server_latency_ms": 13742,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-session:na:19",
+          "score": 0.974705040455,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-methods:na:0",
+          "score": 0.964887201786,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:56",
+          "score": 0.671249210835,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:12",
+          "score": 0.609388232231,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:11",
+          "score": 0.587753176689,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-012",
+      "group": "mdn_http",
+      "query": "HTTP 요청 메서드의 정의와 그 사용 사례는 구체적으로 어떤 것들이 있나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 20084,
+      "server_latency_ms": 20076,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-session:na:19",
+          "score": 0.974705040455,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-methods:na:0",
+          "score": 0.964887201786,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:56",
+          "score": 0.671249210835,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:12",
+          "score": 0.609388232231,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:11",
+          "score": 0.587753176689,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-013",
+      "group": "mdn_http",
+      "query": "HTTP 응답 상태 코드는 무엇을 알려주나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 199,
+      "server_latency_ms": 195,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:34",
+          "score": 0.032258064516,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:27",
+          "score": 0.031498015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.031024531025,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:24",
+          "score": 0.029850746269,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-013",
+      "group": "mdn_http",
+      "query": "HTTP 응답 상태 코드는 무엇을 알려주나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 7082,
+      "server_latency_ms": 7078,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.999818503857,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.999362170696,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:27",
+          "score": 0.965915262699,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-overview:na:60",
+          "score": 0.964562237263,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:26",
+          "score": 0.951751470566,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-013",
+      "group": "mdn_http",
+      "query": "HTTP 응답 상태 코드는 무엇을 알려주나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 14597,
+      "server_latency_ms": 14589,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.999818503857,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.999362170696,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:27",
+          "score": 0.965915262699,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:6",
+          "score": 0.964840292931,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:60",
+          "score": 0.964562237263,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-014",
+      "group": "mdn_http",
+      "query": "HTTP 캐싱을 통해 성능이 어떻게 향상될 수 있는지 구체적으로 설명해 주시겠어요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 250,
+      "server_latency_ms": 242,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-caching:na:0",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-caching:na:2",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:32",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-caching:na:76",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:19",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-014",
+      "group": "mdn_http",
+      "query": "HTTP 캐싱을 통해 성능이 어떻게 향상될 수 있는지 구체적으로 설명해 주시겠어요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 6902,
+      "server_latency_ms": 6896,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-caching:na:0",
+          "score": 0.973851084709,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-caching:na:2",
+          "score": 0.901222348213,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-content-negotiation:na:26",
+          "score": 0.23730738461,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-caching:na:10",
+          "score": 0.162630736828,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-caching:na:76",
+          "score": 0.105520635843,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-014",
+      "group": "mdn_http",
+      "query": "HTTP 캐싱을 통해 성능이 어떻게 향상될 수 있는지 구체적으로 설명해 주시겠어요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 11412,
+      "server_latency_ms": 11406,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-caching:na:0",
+          "score": 0.973851084709,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-caching:na:2",
+          "score": 0.901222348213,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-caching:na:6",
+          "score": 0.299703925848,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-content-negotiation:na:26",
+          "score": 0.23730738461,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-caching:na:10",
+          "score": 0.162630736828,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-015",
+      "group": "mdn_http",
+      "query": "브라우저는 교차 출처 HTTP 요청의 위험을 완화하기 위해 어떤 API에서 CORS를 사용하나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 192,
+      "server_latency_ms": 188,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:4",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:5",
+          "score": 0.031498015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.030798389007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:6",
+          "score": 0.030309988519,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-015",
+      "group": "mdn_http",
+      "query": "브라우저는 교차 출처 HTTP 요청의 위험을 완화하기 위해 어떤 API에서 CORS를 사용하나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 10952,
+      "server_latency_ms": 10948,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:4",
+          "score": 0.999933362007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:2",
+          "score": 0.945704519749,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.90865945816,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.865371286869,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:75",
+          "score": 0.548100113869,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-015",
+      "group": "mdn_http",
+      "query": "브라우저는 교차 출처 HTTP 요청의 위험을 완화하기 위해 어떤 API에서 CORS를 사용하나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 21127,
+      "server_latency_ms": 21113,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:4",
+          "score": 0.999933362007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:2",
+          "score": 0.945704519749,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.90865945816,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.865371286869,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:75",
+          "score": 0.548100113869,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-016",
+      "group": "mdn_http",
+      "query": "사전 요청 헤더는 서버에 무엇을 알리기 위해 사용되나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 183,
+      "server_latency_ms": 179,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.032522474881,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.031778058008,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:121",
+          "score": 0.031754032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:138",
+          "score": 0.030578898226,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-content-negotiation:na:36",
+          "score": 0.030550373134,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-016",
+      "group": "mdn_http",
+      "query": "사전 요청 헤더는 서버에 무엇을 알리기 위해 사용되나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 6763,
+      "server_latency_ms": 6755,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.998831927776,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.998507559299,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:53",
+          "score": 0.993984997272,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:133",
+          "score": 0.985924005508,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:51",
+          "score": 0.954995930195,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-016",
+      "group": "mdn_http",
+      "query": "사전 요청 헤더는 서버에 무엇을 알리기 위해 사용되나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 15494,
+      "server_latency_ms": 15487,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.998831927776,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.998507559299,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:53",
+          "score": 0.993984997272,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:133",
+          "score": 0.985924005508,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:51",
+          "score": 0.954995930195,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-017",
+      "group": "mdn_http",
+      "query": "이 문서가 서버 접근 제한 예시로 사용하는 HTTP 인증 스키마는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 220,
+      "server_latency_ms": 213,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-authentication:na:0",
+          "score": 0.032522474881,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-authentication:na:47",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-authentication:na:33",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-authentication:na:38",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-authentication:na:32",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-017",
+      "group": "mdn_http",
+      "query": "이 문서가 서버 접근 제한 예시로 사용하는 HTTP 인증 스키마는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 3472,
+      "server_latency_ms": 3468,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-authentication:na:0",
+          "score": 0.854318380356,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-authentication:na:27",
+          "score": 0.131082385778,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-authentication:na:35",
+          "score": 0.059105724096,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-authentication:na:2",
+          "score": 0.043449304998,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-authentication:na:28",
+          "score": 0.034567974508,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-017",
+      "group": "mdn_http",
+      "query": "이 문서가 서버 접근 제한 예시로 사용하는 HTTP 인증 스키마는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 8473,
+      "server_latency_ms": 8470,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-authentication:na:0",
+          "score": 0.854318380356,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-authentication:na:27",
+          "score": 0.131082385778,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-authentication:na:35",
+          "score": 0.059105724096,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-authentication:na:2",
+          "score": 0.043449304998,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-authentication:na:28",
+          "score": 0.034567974508,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-018",
+      "group": "mdn_http",
+      "query": "HTTP 응답의 시작 부분은 어떤 요소들로 구성되나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 188,
+      "server_latency_ms": 185,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:26",
+          "score": 0.031778058008,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.03125,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:58",
+          "score": 0.031024531025,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:11",
+          "score": 0.030798389007,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-session:na:21",
+          "score": 0.029198635976,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-018",
+      "group": "mdn_http",
+      "query": "HTTP 응답의 시작 부분은 어떤 요소들로 구성되나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 5715,
+      "server_latency_ms": 5708,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:11",
+          "score": 0.982900559902,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:26",
+          "score": 0.949283242226,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:58",
+          "score": 0.743224680424,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.74264138937,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:6",
+          "score": 0.705653846264,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-018",
+      "group": "mdn_http",
+      "query": "HTTP 응답의 시작 부분은 어떤 요소들로 구성되나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 10889,
+      "server_latency_ms": 10880,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:11",
+          "score": 0.982900559902,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-messages:na:26",
+          "score": 0.949283242226,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:58",
+          "score": 0.743224680424,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:7",
+          "score": 0.74264138937,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:6",
+          "score": 0.705653846264,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-019",
+      "group": "mdn_http",
+      "query": "HTTP 콘텐츠 협상이란 무엇이며, 사용자 에이전트는 무엇을 명시할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 217,
+      "server_latency_ms": 212,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-content-negotiation:na:0",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:6",
+          "score": 0.03128054741,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-content-negotiation:na:7",
+          "score": 0.030550373134,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-content-negotiation:na:1",
+          "score": 0.030536130536,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-content-negotiation:na:8",
+          "score": 0.016129032258,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-019",
+      "group": "mdn_http",
+      "query": "HTTP 콘텐츠 협상이란 무엇이며, 사용자 에이전트는 무엇을 명시할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 13415,
+      "server_latency_ms": 13412,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-content-negotiation:na:0",
+          "score": 0.999953866005,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-content-negotiation:na:8",
+          "score": 0.931512176991,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-content-negotiation:na:41",
+          "score": 0.633821249008,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:13",
+          "score": 0.549760699272,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:6",
+          "score": 0.331847965717,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-019",
+      "group": "mdn_http",
+      "query": "HTTP 콘텐츠 협상이란 무엇이며, 사용자 에이전트는 무엇을 명시할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 23584,
+      "server_latency_ms": 23580,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-content-negotiation:na:0",
+          "score": 0.999953866005,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-content-negotiation:na:8",
+          "score": 0.931512176991,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-content-negotiation:na:41",
+          "score": 0.633821249008,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-status-codes:na:13",
+          "score": 0.549760699272,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:6",
+          "score": 0.331847965717,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-020",
+      "group": "mdn_http",
+      "query": "HTTP 헤더는 어떤 용도로 사용되며 기본 구조는 어떻게 구성되나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 199,
+      "server_latency_ms": 195,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.032522474881,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-headers:na:0",
+          "score": 0.030834914611,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:16",
+          "score": 0.030776515152,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:5",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:65",
+          "score": 0.015873015873,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-020",
+      "group": "mdn_http",
+      "query": "HTTP 헤더는 어떤 용도로 사용되며 기본 구조는 어떻게 구성되나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 5148,
+      "server_latency_ms": 5145,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:16",
+          "score": 0.957490742207,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-headers:na:0",
+          "score": 0.907511711121,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.866717636585,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.852034330368,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:133",
+          "score": 0.687464356422,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-020",
+      "group": "mdn_http",
+      "query": "HTTP 헤더는 어떤 용도로 사용되며 기본 구조는 어떻게 구성되나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 8310,
+      "server_latency_ms": 8304,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-messages:na:16",
+          "score": 0.957490742207,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-headers:na:0",
+          "score": 0.907511711121,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.866717636585,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.852034330368,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:133",
+          "score": 0.687464356422,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-021",
+      "group": "mdn_http",
+      "query": "서버 주도 콘텐츠 협상의 두 가지 확장성 문제는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 185,
+      "server_latency_ms": 173,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-content-negotiation:na:7",
+          "score": 0.032786885246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-content-negotiation:na:12",
+          "score": 0.032258064516,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-content-negotiation:na:1",
+          "score": 0.030578898226,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-content-negotiation:na:8",
+          "score": 0.030117753623,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-content-negotiation:na:43",
+          "score": 0.030090497738,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-021",
+      "group": "mdn_http",
+      "query": "서버 주도 콘텐츠 협상의 두 가지 확장성 문제는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 6364,
+      "server_latency_ms": 6357,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-content-negotiation:na:40",
+          "score": 0.929143428802,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-content-negotiation:na:43",
+          "score": 0.620641052723,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-content-negotiation:na:13",
+          "score": 0.355322629213,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-content-negotiation:na:8",
+          "score": 0.202876865864,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-content-negotiation:na:12",
+          "score": 0.097763545811,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-021",
+      "group": "mdn_http",
+      "query": "서버 주도 콘텐츠 협상의 두 가지 확장성 문제는 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 16861,
+      "server_latency_ms": 16854,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-content-negotiation:na:40",
+          "score": 0.929143428802,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-content-negotiation:na:43",
+          "score": 0.620641052723,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-content-negotiation:na:13",
+          "score": 0.355322629213,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-content-negotiation:na:8",
+          "score": 0.202876865864,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-status-codes:na:13",
+          "score": 0.10447781533,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-022",
+      "group": "mdn_http",
+      "query": "서버는 실제 CORS 요청에서 사용할 수 있는 헤더를 어떻게 알려주나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 190,
+      "server_latency_ms": 186,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:144",
+          "score": 0.03128054741,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.031257631258,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.031054405392,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:133",
+          "score": 0.030886196246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:27",
+          "score": 0.030117753623,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-022",
+      "group": "mdn_http",
+      "query": "서버는 실제 CORS 요청에서 사용할 수 있는 헤더를 어떻게 알려주나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 8279,
+      "server_latency_ms": 8276,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.985080063343,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:57",
+          "score": 0.982650101185,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:53",
+          "score": 0.970096886158,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.955197870731,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.899995326996,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-022",
+      "group": "mdn_http",
+      "query": "서버는 실제 CORS 요청에서 사용할 수 있는 헤더를 어떻게 알려주나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 17934,
+      "server_latency_ms": 17930,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cors:na:0",
+          "score": 0.985080063343,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cors:na:57",
+          "score": 0.982650101185,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cors:na:53",
+          "score": 0.970096886158,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cors:na:10",
+          "score": 0.955197870731,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cors:na:148",
+          "score": 0.899995326996,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-023",
+      "group": "mdn_http",
+      "query": "쿠키는 세션 관리에서 동일한 브라우저의 요청을 어떻게 활용하나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 198,
+      "server_latency_ms": 193,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:42",
+          "score": 0.031513647643,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:27",
+          "score": 0.03125,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cookies:na:0",
+          "score": 0.030578898226,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:6",
+          "score": 0.029644268775,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-023",
+      "group": "mdn_http",
+      "query": "쿠키는 세션 관리에서 동일한 브라우저의 요청을 어떻게 활용하나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 8000,
+      "server_latency_ms": 7996,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:0",
+          "score": 0.928400993347,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.509415388107,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:27",
+          "score": 0.477603405714,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:18",
+          "score": 0.294179290533,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cookies:na:34",
+          "score": 0.156466931105,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-023",
+      "group": "mdn_http",
+      "query": "쿠키는 세션 관리에서 동일한 브라우저의 요청을 어떻게 활용하나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 13466,
+      "server_latency_ms": 13461,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:0",
+          "score": 0.928400993347,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.509415388107,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:27",
+          "score": 0.477603405714,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:18",
+          "score": 0.294179290533,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cookies:na:34",
+          "score": 0.156466931105,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-024",
+      "group": "mdn_http",
+      "query": "쿠키를 이용한 세션 관리로 어떤 정보를 관리할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 175,
+      "server_latency_ms": 170,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:42",
+          "score": 0.032522474881,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cookies:na:18",
+          "score": 0.031513647643,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-cookies:na:3",
+          "score": 0.031498015873,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:10",
+          "score": 0.029437229437,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.016393442623,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-024",
+      "group": "mdn_http",
+      "query": "쿠키를 이용한 세션 관리로 어떤 정보를 관리할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 7232,
+      "server_latency_ms": 7224,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:2",
+          "score": 0.624221086502,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cookies:na:42",
+          "score": 0.402738809586,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.376309335232,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:18",
+          "score": 0.15478271246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cookies:na:3",
+          "score": 0.082099981606,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-024",
+      "group": "mdn_http",
+      "query": "쿠키를 이용한 세션 관리로 어떤 정보를 관리할 수 있나요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 15455,
+      "server_latency_ms": 15447,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-cookies:na:2",
+          "score": 0.624221086502,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-cookies:na:42",
+          "score": 0.402738809586,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-overview:na:40",
+          "score": 0.376309335232,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-cookies:na:18",
+          "score": 0.15478271246,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-cookies:na:3",
+          "score": 0.082099981606,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-025",
+      "group": "mdn_http",
+      "query": "HTTP 응답 상태 코드는 몇 개의 계층으로 그룹화되며 각 계층은 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 3938,
+      "server_latency_ms": 3914,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.032522474881,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-session:na:34",
+          "score": 0.032002048131,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.031544957774,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-messages:na:27",
+          "score": 0.031024531025,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-messages:na:24",
+          "score": 0.029631255487,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-025",
+      "group": "mdn_http",
+      "query": "HTTP 응답 상태 코드는 몇 개의 계층으로 그룹화되며 각 계층은 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 7545,
+      "server_latency_ms": 7516,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.999539971352,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.994967997074,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:26",
+          "score": 0.18475651741,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-session:na:34",
+          "score": 0.073091074824,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:19",
+          "score": 0.063623517752,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "mdn-025",
+      "group": "mdn_http",
+      "query": "HTTP 응답 상태 코드는 몇 개의 계층으로 그룹화되며 각 계층은 무엇인가요?",
+      "source": "mdn_http",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 31862,
+      "server_latency_ms": 31854,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "mdn-http-session:na:35",
+          "score": 0.999539971352,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "mdn-http-status-codes:na:0",
+          "score": 0.994967997074,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "mdn-http-messages:na:26",
+          "score": 0.184756919742,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "mdn-http-session:na:34",
+          "score": 0.073091074824,
+          "tags": [
+            "mdn_http"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "mdn-http-overview:na:19",
+          "score": 0.063623517752,
+          "tags": [
+            "mdn_http"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-constitution-article-1",
+      "group": "law",
+      "query": "대한민국헌법 제1조",
+      "source": "law",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 3790,
+      "server_latency_ms": 3783,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0014440001001",
+          "score": 3.0,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0014060001001",
+          "score": 0.619932175019,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0014280001001",
+          "score": 0.61174652754,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0016220001001",
+          "score": 0.60124942709,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0112330001001",
+          "score": 0.594638020989,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-constitution-article-1",
+      "group": "law",
+      "query": "대한민국헌법 제1조",
+      "source": "law",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 11925,
+      "server_latency_ms": 11917,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0014440001001",
+          "score": 0.999775707722,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0014280001001",
+          "score": 0.784057915211,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0001850001001",
+          "score": 0.771479487419,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0142850001001",
+          "score": 0.708256363869,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0122370001001",
+          "score": 0.635563850403,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-constitution-article-1",
+      "group": "law",
+      "query": "대한민국헌법 제1조",
+      "source": "law",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 19646,
+      "server_latency_ms": 19639,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0014440001001",
+          "score": 0.999775707722,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0014280001001",
+          "score": 0.784057915211,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0001850001001",
+          "score": 0.771479487419,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0142850001001",
+          "score": 0.708256363869,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0122370001001",
+          "score": 0.635563850403,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-privacy-article-15",
+      "group": "law",
+      "query": "개인정보 보호법 제15조",
+      "source": "law",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 937,
+      "server_latency_ms": 933,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0113570015001",
+          "score": 3.0,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0015890015001",
+          "score": 0.661647826939,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0096270015001",
+          "score": 0.64700845249,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0098820015001",
+          "score": 0.613003676028,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0001230015031",
+          "score": 0.611253292929,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-privacy-article-15",
+      "group": "law",
+      "query": "개인정보 보호법 제15조",
+      "source": "law",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 39181,
+      "server_latency_ms": 39172,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0113570015001",
+          "score": 0.997532606125,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0015890015001",
+          "score": 0.996654868126,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0096270015001",
+          "score": 0.995512783527,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0001230015031",
+          "score": 0.959242463112,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0141710015001",
+          "score": 0.813992023468,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-privacy-article-15",
+      "group": "law",
+      "query": "개인정보 보호법 제15조",
+      "source": "law",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 61642,
+      "server_latency_ms": 61631,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0113570015001",
+          "score": 0.997532606125,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0015890015001",
+          "score": 0.996654868126,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0096270015001",
+          "score": 0.995512783527,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0001230015031",
+          "score": 0.959242463112,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0015400015001",
+          "score": 0.902149260044,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-labor-article-60",
+      "group": "law",
+      "query": "근로기준법 제60조",
+      "source": "law",
+      "profile": "fast",
+      "status": "success",
+      "client_latency_ms": 692,
+      "server_latency_ms": 686,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0018720060001",
+          "score": 3.0,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0074560060001",
+          "score": 0.682704203749,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0018720017001",
+          "score": 0.0,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0018720018001",
+          "score": 0.0,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0018720061001",
+          "score": 0.0,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-labor-article-60",
+      "group": "law",
+      "query": "근로기준법 제60조",
+      "source": "law",
+      "profile": "default",
+      "status": "success",
+      "client_latency_ms": 34808,
+      "server_latency_ms": 34799,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0018720060001",
+          "score": 0.993362665176,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0018720061001",
+          "score": 0.972384929657,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0018720062001",
+          "score": 0.897573053837,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0018720110001",
+          "score": 0.698357224464,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0018720018001",
+          "score": 0.563061892986,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    },
+    {
+      "case_id": "law-labor-article-60",
+      "group": "law",
+      "query": "근로기준법 제60조",
+      "source": "law",
+      "profile": "quality",
+      "status": "success",
+      "client_latency_ms": 52445,
+      "server_latency_ms": 52430,
+      "results": [
+        {
+          "rank": 1,
+          "chunk_id": "0018720060001",
+          "score": 0.993362665176,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 2,
+          "chunk_id": "0018720061001",
+          "score": 0.972384929657,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 3,
+          "chunk_id": "0018720062001",
+          "score": 0.897573053837,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 4,
+          "chunk_id": "0018720110001",
+          "score": 0.698357224464,
+          "tags": [
+            "law"
+          ]
+        },
+        {
+          "rank": 5,
+          "chunk_id": "0018720018001",
+          "score": 0.563061892986,
+          "tags": [
+            "law"
+          ]
+        }
+      ],
+      "source_mixing": [],
+      "error": null
+    }
+  ]
+}

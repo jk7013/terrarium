@@ -1,7 +1,7 @@
 PYTHON ?= python3
 TEST_COMPOSE = docker compose -f docker-compose.test.yml
 
-.PHONY: check lint test test-docker
+.PHONY: check lint test test-docker retrieval-baseline retrieval-baseline-resume retrieval-check retrieval-check-resume
 
 check: lint test
 
@@ -17,3 +17,18 @@ test-docker:
 	$(TEST_COMPOSE) up --build --abort-on-container-exit --exit-code-from terrarium-tests || status=$$?; \
 	$(TEST_COMPOSE) down --volumes --remove-orphans; \
 	exit $$status
+
+retrieval-baseline:
+	$(PYTHON) scripts/retrieval_baseline.py capture
+
+retrieval-baseline-resume:
+	$(PYTHON) scripts/retrieval_baseline.py capture --resume
+
+retrieval-check:
+	$(PYTHON) scripts/retrieval_baseline.py check \
+		--candidate-output /tmp/terrarium-retrieval-candidate.json
+
+retrieval-check-resume:
+	$(PYTHON) scripts/retrieval_baseline.py check \
+		--candidate-output /tmp/terrarium-retrieval-candidate.json \
+		--resume
