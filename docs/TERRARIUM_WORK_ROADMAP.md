@@ -152,6 +152,8 @@ Terrarium은 다음 순서로 일한다.
 
 완료 기록:
 
+- 구현 커밋: `e092dee`
+- pull request: <https://github.com/jk7013/terrarium/pull/5>
 - 질문: 승인된 MDN HTTP 평가 질문 25개, 고정 법령 질문 3개
 - 실행: 질문 28개 × 프로필 3개 = 84건
 - 최초 기준값: 검색 성공 84건, 실패 0건, source 혼입 0건
