@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.11-slim AS base
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -9,9 +9,22 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /app/requirements.txt
 COPY requirements.lock.txt /app/requirements.lock.txt
 RUN pip install --no-cache-dir -r /app/requirements.lock.txt
+
+FROM base AS test
+
+COPY requirements-dev.txt /app/requirements-dev.txt
+RUN pip install --no-cache-dir -r /app/requirements-dev.txt
+
+COPY app /app/app
+COPY tests /app/tests
+COPY scripts /app/scripts
+COPY pytest.ini /app/pytest.ini
+
+CMD ["python", "-m", "pytest", "-q"]
+
+FROM base AS runtime
 
 COPY app /app/app
 COPY static /app/static

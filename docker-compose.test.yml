@@ -1,0 +1,35 @@
+name: terrarium-test
+
+services:
+  terrarium-test-db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: terrarium_test
+      POSTGRES_USER: terrarium_test
+      POSTGRES_PASSWORD: terrarium_test
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U terrarium_test -d terrarium_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+
+  terrarium-tests:
+    build:
+      context: .
+      target: test
+    environment:
+      DATABASE_URL: postgresql://terrarium_test:terrarium_test@terrarium-test-db:5432/terrarium_test
+      TEST_DATABASE_URL: postgresql://terrarium_test:terrarium_test@terrarium-test-db:5432/terrarium_test
+      OFFLINE_MODE: "true"
+    depends_on:
+      terrarium-test-db:
+        condition: service_healthy
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        python -m compileall -q app tests scripts &&
+        python -m ruff check app tests scripts --select E9,F63,F7,F82 &&
+        python -m pytest -q

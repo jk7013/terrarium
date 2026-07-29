@@ -1,0 +1,6 @@
+# Test runner
+pytest==9.0.2
+pytest-asyncio==1.3.0
+
+# Fast, high-signal static checks
+ruff==0.16.0
