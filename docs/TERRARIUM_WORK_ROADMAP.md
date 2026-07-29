@@ -70,24 +70,26 @@ Terrarium은 다음 순서로 일한다.
 
 ### 할 일
 
-- [ ] Terrarium 작업 트리가 깨끗한지 확인한다.
-- [ ] 현재 브랜치를 GitHub에 push한다.
-- [ ] `origin/main`과 현재 브랜치의 차이를 검토한다.
-- [ ] 복구 코드와 MDN 변경을 어떤 순서로 main에 합칠지 정한다.
-- [ ] pull request를 만들고 변경 내용을 기록한다.
-- [ ] main에 합친 뒤 기준 커밋 ID를 이 문서에 기록한다.
+- [x] Terrarium 작업 트리가 깨끗한지 확인한다.
+- [x] 현재 브랜치를 GitHub에 push한다.
+- [x] `origin/main`과 현재 브랜치의 차이를 검토한다.
+- [x] 복구 코드와 MDN 변경을 어떤 순서로 main에 합칠지 정한다.
+- [x] pull request를 만들고 변경 내용을 기록한다.
+- [x] main에 합친 뒤 기준 커밋 ID를 이 문서에 기록한다.
 
 ### 완료 조건
 
-- [ ] GitHub에서 현재 Terrarium 실행 코드를 확인할 수 있다.
-- [ ] 새 컴퓨터에서 저장소를 clone해 같은 코드를 받을 수 있다.
-- [ ] 되돌아갈 기준 커밋이 명확하다.
+- [x] GitHub에서 현재 Terrarium 실행 코드를 확인할 수 있다.
+- [x] 새 컴퓨터에서 저장소를 clone해 같은 코드를 받을 수 있다.
+- [x] 되돌아갈 기준 커밋이 명확하다.
 
 완료 기록:
 
-- 기준 커밋:
+- 기준 커밋: `247eac6ce8bd31a0bf8301877a7cdca6b9cad85c`
 - pull request:
-- 완료일:
+  - 복구 코드: <https://github.com/jk7013/terrarium/pull/1>
+  - MDN 색인과 로드맵: <https://github.com/jk7013/terrarium/pull/2>
+- 완료일: 2026-07-29
 
 ## T0-2. 자동 테스트 실행 환경 만들기
 
