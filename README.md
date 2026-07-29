@@ -49,6 +49,33 @@ docker compose up -d --build
 The Dockerfile uses `requirements.lock.txt`, recovered from the running container with `pip freeze`.
 Keep `requirements.txt` as the human-readable dependency intent, and update the lock file only after testing a rebuilt image.
 
+## Tests
+
+Development-only packages are listed in `requirements-dev.txt`.
+Use Python 3.11 when creating a local environment:
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock.txt -r requirements-dev.txt
+make check
+```
+
+`make check` runs Python syntax checks, a small set of high-signal static checks,
+and unit tests that do not require a database.
+
+For the complete suite, including the PostgreSQL/pgvector integration test:
+
+```bash
+make test-docker
+```
+
+This command creates a temporary `terrarium_test` database with no host port and
+no external Docker volume. It never connects to the operational
+`docker_terrarium_pgdata` volume, and removes the temporary test services when
+the run finishes. GitHub Actions runs this same command for every pull request
+and every push to `main`.
+
 The compose file intentionally uses the existing external Docker resources:
 
 ```text
