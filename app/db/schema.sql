@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS chunks (
     section_number INT NULL,
     article_number INT NULL,
     article_sub_number INT NULL,
+    article_key TEXT NULL,
     embedding VECTOR(1024) NULL,
+    linked_refs JSONB NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

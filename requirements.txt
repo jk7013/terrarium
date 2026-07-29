@@ -15,10 +15,9 @@ sqlalchemy>=2.0.0
 psycopg[binary]>=3.2.0
 # sqlite3는 Python 표준 라이브러리
 
-# RAG 라이브러리 (향후 추가)
-# sentence-transformers  # BGE-m3-ko 임베딩
-# rank-bm25              # BM25 검색
-# faiss-cpu             # 벡터 스토어
+# RAG 라이브러리
+rank-bm25
+sentence-transformers
 
 # 유틸리티
 python-dotenv>=1.0.0
